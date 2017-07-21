@@ -36,7 +36,7 @@
 
 #define CAN_TEST                1
 #define TXCOUNT                 100
-#define CONTROLLER_ID           3
+#define CONTROLLER_ID           1
 //#define MB_SLAVE_ID             0x01  //Defined in ModbusSettings.h
 
 

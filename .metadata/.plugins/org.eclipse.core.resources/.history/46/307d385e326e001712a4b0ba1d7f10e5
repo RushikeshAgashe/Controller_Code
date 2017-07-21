@@ -323,7 +323,7 @@ interrupt void  adc_isr(void)
 
     I_1  = AdcMirror.ADCRESULT1;
     I_L1 = ((FLT32)(I_1-2047.5)*150)/(2047.5); //
-    //mb.holdingRegisters.dummy1 = I_L1;
+    mb.holdingRegisters.dummy1 = I_L1;
 
     I_2  = AdcMirror.ADCRESULT2;
     I_L2 = ((FLT32)(I_2-2047.5)*150)/(2047.5); //

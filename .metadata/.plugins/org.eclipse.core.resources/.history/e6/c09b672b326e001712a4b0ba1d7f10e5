@@ -80,13 +80,13 @@ void check_modbus_query(int message){
 void main(void)
 {
     InitSysCtrl();
-    InitECanGpio();                 //CAN
+    //InitECanGpio();                 //CAN
     Gpio_select();
     InitPieCtrl();  // Disable PIE and clear PIEIER and PIEIFR registers
     IER = 0x0000;
     IFR = 0x0000;
     InitPieVectTable();  // Initialize and enable PIE vector table
-    InitECana();                      //CAN
+    //InitECana();                      //CAN
     MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
     InitFlash();
 
@@ -133,7 +133,7 @@ void main(void)
 #if CAN_TEST
     can_transmit();
 #endif
-    //check_modbus_query(0xAF);
+    check_modbus_query(0xAF);
 }
 void InitVariable(void)
 {
