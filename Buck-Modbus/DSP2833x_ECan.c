@@ -40,6 +40,7 @@ struct ECAN_REGS ECanaShadow;
 
 	EALLOW;		// EALLOW enables access to protected bits
 
+/*------------------------STEP 1---------------*/
 /* Configure eCAN RX and TX pins for CAN operation using eCAN regs*/
 
     ECanaShadow.CANTIOC.all = ECanaRegs.CANTIOC.all;
@@ -49,50 +50,6 @@ struct ECAN_REGS ECanaShadow;
     ECanaShadow.CANRIOC.all = ECanaRegs.CANRIOC.all;
     ECanaShadow.CANRIOC.bit.RXFUNC = 1;
     ECanaRegs.CANRIOC.all = ECanaShadow.CANRIOC.all;
-
-/* Configure eCAN for HECC mode - (reqd to access mailboxes 16 thru 31) */
-									// HECC mode also enables time-stamping feature
-
-	ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
-	ECanaShadow.CANMC.bit.SCB = 1;
-	ECanaRegs.CANMC.all = ECanaShadow.CANMC.all;
-
-/* Initialize all bits of 'Master Control Field' to zero */
-// Some bits of MSGCTRL register come up in an unknown state. For proper operation,
-// all bits (including reserved bits) of MSGCTRL must be initialized to zero
-
-    ECanaMboxes.MBOX0.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX1.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX2.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX3.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX4.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX5.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX6.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX7.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX8.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX9.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX10.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX11.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX12.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX13.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX14.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX15.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX16.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX17.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX18.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX19.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX20.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX21.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX22.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX23.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX24.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX25.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX26.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX27.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX28.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX29.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX30.MSGCTRL.all = 0x00000000;
-    ECanaMboxes.MBOX31.MSGCTRL.all = 0x00000000;
 
 // TAn, RMPn, GIFn bits are all zero upon reset and are cleared again
 //	as a matter of precaution.
@@ -104,7 +61,7 @@ struct ECAN_REGS ECanaShadow;
 	ECanaRegs.CANGIF0.all = 0xFFFFFFFF;	/* Clear all interrupt flag bits */
 	ECanaRegs.CANGIF1.all = 0xFFFFFFFF;
 
-
+//---------------STEP 2 and 3------------------//
 /* Configure bit timing parameters for eCANA*/
 	ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
 	ECanaShadow.CANMC.bit.CCR = 1 ;            // Set CCR = 1
@@ -119,6 +76,7 @@ struct ECAN_REGS ECanaShadow;
 
     ECanaShadow.CANBTC.all = 0;
 
+/* ------------------ STEP 4-------------------------------- */
     #if (CPU_FRQ_150MHZ)                       // CPU_FRQ_150MHz is defined in DSP2833x_Examples.h
 		/* The following block for all 150 MHz SYSCLKOUT (75 MHz CAN clock) - default. Bit rate = 1 Mbps
 		   See Note at End of File */
@@ -135,15 +93,70 @@ struct ECAN_REGS ECanaShadow;
 	#endif
 
 
-    ECanaShadow.CANBTC.bit.SAM = 1;
+    ECanaShadow.CANBTC.bit.SAM = 1;     // Higher Sampling Precision of CAN bus level
     ECanaRegs.CANBTC.all = ECanaShadow.CANBTC.all;
 
+/*-------------------STEP 5(NOT NEEDED)---------------*/
+    /* Configure eCAN for HECC mode - (reqd to access mailboxes 16 thru 31) */
+                                        // HECC mode also enables time-stamping feature
+
+        //ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
+        //ECanaShadow.CANMC.bit.SCB = 1;
+        //ECanaRegs.CANMC.all = ECanaShadow.CANMC.all;
+
+/* --------------------Step 6-------------------------*/
     ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
 	ECanaShadow.CANMC.bit.CCR = 0 ;            // Set CCR = 0
-    ECanaRegs.CANMC.all = ECanaShadow.CANMC.all;
+	ECanaShadow.CANMC.bit.PDR = 0 ;
+	ECanaShadow.CANMC.bit.DBO = 0 ;
+	ECanaShadow.CANMC.bit.WUBA = 0 ;
+	ECanaShadow.CANMC.bit.CDR = 0 ;
+	ECanaShadow.CANMC.bit.ABO = 0 ;
+	ECanaShadow.CANMC.bit.STM = 0 ;
+	ECanaShadow.CANMC.bit.SRES = 0 ;
+	ECanaShadow.CANMC.bit.MBNR = 0 ;
+	ECanaRegs.CANMC.all = ECanaShadow.CANMC.all;
 
     ECanaShadow.CANES.all = ECanaRegs.CANES.all;
 
+/* ----------------STEP 7----------------------*/
+    /* Initialize all bits of 'Master Control Field' to zero */
+    // Some bits of MSGCTRL register come up in an unknown state. For proper operation,
+    // all bits (including reserved bits) of MSGCTRL must be initialized to zero
+
+        ECanaMboxes.MBOX0.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX1.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX2.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX3.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX4.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX5.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX6.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX7.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX8.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX9.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX10.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX11.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX12.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX13.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX14.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX15.MSGCTRL.all = 0x00000000;
+    /*  ECanaMboxes.MBOX16.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX17.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX18.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX19.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX20.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX21.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX22.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX23.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX24.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX25.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX26.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX27.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX28.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX29.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX30.MSGCTRL.all = 0x00000000;
+        ECanaMboxes.MBOX31.MSGCTRL.all = 0x00000000;
+    */
     do
     {
        ECanaShadow.CANES.all = ECanaRegs.CANES.all;

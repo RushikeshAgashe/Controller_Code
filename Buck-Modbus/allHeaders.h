@@ -34,9 +34,20 @@
 #define DSP3        3
 #define DSPtest     4
 
-#define CAN_TEST                1
+#define CONTROLLER_ID           2
+
+#if CONTROLLER_ID == 2
+#define MBOX_TX_MSGID           0x15AC0000
+#define MBOX_RX_MSGID           0x15AC0001
+#endif
+
+#if CONTROLLER_ID == 3
+#define MBOX_TX_MSGID           0x15AC0001
+#define MBOX_RX_MSGID           0x15AC0000
+#endif
+
+#define CAN_TEST                0
 #define TXCOUNT                 100
-#define CONTROLLER_ID           3
 //#define MB_SLAVE_ID             0x01  //Defined in ModbusSettings.h
 
 

@@ -13,55 +13,37 @@ ModbusSlave mb;
 long      i;                    //CAN
 long      loopcount = 0;        //CAN
 struct ECAN_REGS ECanaShadow;   //CAN
-Uint32  ErrorCount;
-Uint32  PassCount;
-Uint32  MessageReceivedCount;
 
-Uint32  TestMbox1 = 0;
-Uint32  TestMbox2 = 0;
-Uint32  TestMbox3 = 0;
 void check_modbus_query(int);
-void mailbox_read(int16 MBXnbr)
-{
-   volatile struct MBOX *Mailbox;
-   Mailbox = &ECanaMboxes.MBOX0 + MBXnbr;
-   TestMbox1 = Mailbox->MDL.all; // = 0x9555AAAn (n is the MBX number)
-   TestMbox2 = Mailbox->MDH.all; // = 0x89ABCDEF (a constant)
-   TestMbox3 = Mailbox->MSGID.all;// = 0x9555AAAn (n is the MBX number)
-
-} // MSGID of a rcv MBX is transmitted as the MDL data.
-
-void mailbox_check(int32 T1, int32 T2, int32 T3)
-{
-    if((T1 != T3) || ( T2 != 0x89ABCDEF))
-    {
-       ErrorCount++;
-    }
-    else
-    {
-       PassCount++;
-    }
-}
 
 void can_transmit(void){
     int i;
     int timeout =0;
-    short status = 0;
+    short status = 5;
     int message = 0x01;
     for(i=0; i < TXCOUNT; i++)
-    //while(1)
         {
-           ECanaRegs.CANTRS.all = 0x0FFFFFFF;  // Set TRS for all transmit mailboxes
-           //ECanaRegs.CANTRS.bit.TRS1 = 1;             // Set TRS for mailbox under test
-           //ECanaRegs.CANTRS.all = ECanaShadow.CANTRS.all;
-           while(ECanaRegs.CANTA.all != 0x0FFFFFFF && timeout < 10000) timeout++;
-           if (timeout >= 10000){status = 0;timeout = 0;}
-           else{
+           ECanaMboxes.MBOX0.MDL.all = 0x15AC0000;    // Message Data Reg Low - MSGID
+           ECanaMboxes.MBOX0.MDH.all = 0xF0F0F0F0;    // Constant TEST DATA
+
+           ECanaShadow.CANTRS.all = ECanaRegs.CANTRS.all;
+           ECanaShadow.CANTRS.bit.TRS0 = 1;             // Begin Transmission
+           ECanaRegs.CANTRS.all = ECanaShadow.CANTRS.all;
+
+           do{
+              ECanaShadow.CANTA.all = ECanaRegs.CANTA.all;
+           }while(ECanaShadow.CANTA.bit.TA0 != 1);
+
+           ECanaShadow.CANTA.bit.TA0 = 1;
+           ECanaRegs.CANTA.all = ECanaShadow.CANTA.all;
+
+           ECanaShadow.CANTA.all = ECanaRegs.CANTA.all;
+           ECanaShadow.CANTA.bit.TA0 = 1;                 // Clear TA0 by writing a 1 to TA0
+           ECanaRegs.CANTA.all = ECanaShadow.CANTA.all;
+           do{
+               ECanaShadow.CANTA.all = ECanaRegs.CANTA.all;
+           }while (ECanaShadow.CANTA.bit.TA0 !=0);         // Wait for TA0 to clear to 0
            status = 1;
-           ECanaRegs.CANTA.all = 0x0FFFFFFF;   // Clear all TAn
-           mailbox_read(1); //Read MBOX1
-           mailbox_check(TestMbox1,TestMbox2,TestMbox3);
-           }
         }
     if(status) message = 0xFF; else message = 0xAA;
     check_modbus_query(message);
@@ -91,19 +73,55 @@ void main(void)
     InitFlash();
 
 #if CAN_TEST
-    /*------ CAN test code------------------*/
-    ECanaMboxes.MBOX0.MSGID.all = 0x9555AAA0;  // Tx MBOX0 MSGID xx0
-    ECanaMboxes.MBOX1.MSGID.all = 0x9555AAA1;  // Rx MBOX1 MSGID xx1
-    ECanaRegs.CANMD.all = 0x80000000;          // Config MBOX0 as Tx and MBOX1 as Rx
-    ECanaRegs.CANME.all = 0xC0000000;          // Enable MBOX0 and MBOX1
-    ECanaMboxes.MBOX0.MSGCTRL.bit.DLC = 8;     // 8 bits will be Rx'ed/Tx'ed
+/*----------------------------------------- CAN test code--------------------------------*/
+
+    ECanaRegs.CANME.all = 0x00000000;          // Disable all MBOXs
+    /*----------Configuring MBOX0 for Tx----------*/
+    ECanaShadow.CANTRS.all = ECanaRegs.CANTRS.all;
+    ECanaShadow.CANTRS.bit.TRS0 = 1;
+    ECanaRegs.CANTRS.all = ECanaShadow.CANTRS.all;
+
+    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME0 = 0;                 // MBOX0 Disable
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+
+    ECanaMboxes.MBOX0.MSGID.bit.AAM = 0;
+    ECanaMboxes.MBOX0.MSGID.bit.AME = 0;
+    ECanaMboxes.MBOX0.MSGID.all = MBOX_TX_MSGID;  // MSGID for MBOX0
+    ECanaMboxes.MBOX0.MSGCTRL.bit.DLC = 8;     // 8 bits will be Tx'ed
+    ECanaMboxes.MBOX0.MSGCTRL.bit.RTR = 0;     // Clear RTR flag-- No remote Transmit
+
+    ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
+    ECanaShadow.CANMD.bit.MD0 = 0;               // MBOX0 Direction Tx
+    ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
+
+    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME0 = 1;               // MBOX0 Enable
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+
+    /*----------Configuring MBOX1 for Rx----------*/
+    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME1 = 0;               // MBOX1 Disable
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+
+    ECanaMboxes.MBOX1.MSGID.all = MBOX_RX_MSGID;  // MSGID for MBOX0
+    ECanaMboxes.MBOX1.MSGCTRL.bit.DLC = 8;     // 8 bits will be Rx'ed
+
+    ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
+    ECanaShadow.CANMD.bit.MD1 = 1;               // MBOX1 Direction Rx
+    ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
+
+    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME1 = 1;               // MBOX1 Enable
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+
     ECanaMboxes.MBOX1.MSGCTRL.bit.DLC = 8;     // 8 bits will be Rx'ed/Tx'ed
-    ECanaMboxes.MBOX0.MDL.all = 0x9555AAA0;    // Message Data Reg Low - MSGID
-    ECanaMboxes.MBOX0.MDH.all = 0xF0F0F0F0;    //Constant TEST DATA
+
     EALLOW;
     ECanaRegs.CANMIM.all = 0xC0000000;         //Enable interrupts for MBX00 and MBX1
     EALLOW;
-    ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
+
+//    ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
 //    ECanaShadow.CANMC.bit.STM = 1;              // Configure CAN for self-test mode
 //    ECanaRegs.CANMC.all = ECanaShadow.CANMC.all;
     EDIS;
@@ -116,6 +134,7 @@ void main(void)
     PieVectTable.EPWM1_INT = &epwm1_timer_isr;
     //PieVectTable.EPWM2_INT = &epwm2_timer_isr;
     PieVectTable.ADCINT = &adc_isr;
+    PieVectTable.ECAN0INTA = &ecan0inta_isr;
 
     EDIS;
 
@@ -133,16 +152,13 @@ void main(void)
 #if CAN_TEST
     can_transmit();
 #endif
-    //check_modbus_query(0xAF);
+    check_modbus_query(0xAF);
 }
 void InitVariable(void)
 {
    // Tsampcc=0.0001;
 
 }
-
-
-
 //===========================================================================
 // No more.
 //===========================================================================

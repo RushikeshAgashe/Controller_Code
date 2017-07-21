@@ -50,7 +50,6 @@ unsigned int Battery2_SoC_f;
 //interrupt void xint1_isr(void);
 //interrupt void xint2_isr(void);
 interrupt void epwm1_timer_isr(void);
-//interrupt void epwm2_timer_isr(void);
 interrupt void  adc_isr(void);
 
 DQS Is_abc2dqs(ABC *abc);
@@ -299,7 +298,6 @@ interrupt void epwm1_timer_isr(void)
 	// Acknowledge this interrupt to receive more interrupts from group 3
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 }
-
 unsigned int filter_SoC(UINT16 SoC, UINT16 SoC_buffer[buff_size])
 {
     int i;

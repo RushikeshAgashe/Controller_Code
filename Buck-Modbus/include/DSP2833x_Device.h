@@ -137,7 +137,7 @@ typedef long double        float64;
 #define DSP28_EQEP1  1
 #define DSP28_EQEP2  1
 #define DSP28_ECANA  1
-#define DSP28_ECANB  1
+#define DSP28_ECANB  0
 #define DSP28_MCBSPA 1
 #define DSP28_MCBSPB 1
 #define DSP28_SPIA   1

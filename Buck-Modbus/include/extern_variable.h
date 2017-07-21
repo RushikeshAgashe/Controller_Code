@@ -109,7 +109,8 @@ extern void GateOff();
 extern interrupt void xint1_isr(void);
 extern interrupt void xint2_isr(void);
 extern interrupt void epwm1_timer_isr(void);
-extern interrupt void  adc_isr(void);
+extern interrupt void adc_isr(void);
+extern interrupt void ecan0inta_isr(void);
 
 extern void MemCopy(Uint16 *SourceAddr, Uint16* SourceEndAddr, Uint16* DestAddr);
 
