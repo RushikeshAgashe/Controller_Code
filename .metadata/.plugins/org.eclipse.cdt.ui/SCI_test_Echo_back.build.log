@@ -1,0 +1,82 @@
+
+**** Build of configuration Debug for project SCI_test_Echo_back ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 8 all -O 
+'Building file: ../src/DSP2833x_CodeStartBranch.asm'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_CodeStartBranch.d" --obj_directory="src"  "../src/DSP2833x_CodeStartBranch.asm"
+'Finished building: ../src/DSP2833x_CodeStartBranch.asm'
+' '
+'Building file: ../src/DSP2833x_usDelay.asm'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_usDelay.d" --obj_directory="src"  "../src/DSP2833x_usDelay.asm"
+'Finished building: ../src/DSP2833x_usDelay.asm'
+' '
+'Building file: ../src/DSP2833x_MemCopy.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_MemCopy.d" --obj_directory="src"  "../src/DSP2833x_MemCopy.c"
+'Finished building: ../src/DSP2833x_MemCopy.c'
+' '
+'Building file: ../src/DSP2833x_PieCtrl.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_PieCtrl.d" --obj_directory="src"  "../src/DSP2833x_PieCtrl.c"
+'Finished building: ../src/DSP2833x_PieCtrl.c'
+' '
+'Building file: ../src/DSP2833x_PieVect.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_PieVect.d" --obj_directory="src"  "../src/DSP2833x_PieVect.c"
+'Finished building: ../src/DSP2833x_PieVect.c'
+' '
+'Building file: ../src/DSP2833x_SysCtrl.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_SysCtrl.d" --obj_directory="src"  "../src/DSP2833x_SysCtrl.c"
+'Finished building: ../src/DSP2833x_SysCtrl.c'
+' '
+'Building file: ../src/DSP2833x_DefaultIsr.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_DefaultIsr.d" --obj_directory="src"  "../src/DSP2833x_DefaultIsr.c"
+'Finished building: ../src/DSP2833x_DefaultIsr.c'
+' '
+'Building file: ../src/GPIO_Driver.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/GPIO_Driver.d" --obj_directory="src"  "../src/GPIO_Driver.c"
+'Finished building: ../src/GPIO_Driver.c'
+' '
+'Building file: ../src/EvMgr.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/EvMgr.d" --obj_directory="src"  "../src/EvMgr.c"
+'Finished building: ../src/EvMgr.c'
+' '
+'Building file: ../src/DSP2833x_GlobalVariableDefs.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/DSP2833x_GlobalVariableDefs.d" --obj_directory="src"  "../src/DSP2833x_GlobalVariableDefs.c"
+'Finished building: ../src/DSP2833x_GlobalVariableDefs.c'
+' '
+'Building file: ../src/main.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/main.d" --obj_directory="src"  "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building file: ../src/Timer.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/Timer.d" --obj_directory="src"  "../src/Timer.c"
+'Finished building: ../src/Timer.c'
+' '
+'Building file: ../src/StateMgr.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/StateMgr.d" --obj_directory="src"  "../src/StateMgr.c"
+'Finished building: ../src/StateMgr.c'
+' '
+'Building file: ../src/RS232.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/incl" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/include" --include_path="C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/include" -g --diag_warning=225 --display_error_number --preproc_with_compile --preproc_dependency="src/RS232.d" --obj_directory="src"  "../src/RS232.c"
+'Finished building: ../src/RS232.c'
+' '
+'Building target: SCI_test_Echo_back.out'
+'Invoking: C2000 Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --diag_warning=225 --display_error_number -z -m"SCI_test_Echo_back.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-c2000_16.9.1.LTS/include" -i"C:/Users/ragashe/Downloads/SCI_echo_back_28335-master/SCI_echo_back_28335-master/lib/libs/lib" --reread_libs --xml_link_info="SCI_test_Echo_back_linkInfo.xml" --rom_model -o "SCI_test_Echo_back.out" "./src/DSP2833x_CodeStartBranch.obj" "./src/DSP2833x_DefaultIsr.obj" "./src/DSP2833x_GlobalVariableDefs.obj" "./src/DSP2833x_MemCopy.obj" "./src/DSP2833x_PieCtrl.obj" "./src/DSP2833x_PieVect.obj" "./src/DSP2833x_SysCtrl.obj" "./src/DSP2833x_usDelay.obj" "./src/EvMgr.obj" "./src/GPIO_Driver.obj" "./src/RS232.obj" "./src/StateMgr.obj" "./src/Timer.obj" "./src/main.obj" "../DSP2833x_Headers_nonBIOS.cmd" "../F28335.cmd" "../lib/libs/lib/CoreFun_DSP2833x.lib" "../lib/libs/lib/rts2800_fpu32_fast_supplement.lib"  -llibc.a 
+<Linking>
+'Finished building target: SCI_test_Echo_back.out'
+' '
+
+**** Build Finished ****

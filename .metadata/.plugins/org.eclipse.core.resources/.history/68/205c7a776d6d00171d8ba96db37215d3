@@ -1,0 +1,21 @@
+/*
+ * common.h
+ *
+ *  Created on: Jul 20, 2017
+ *      Author: ragashe
+ */
+
+#ifndef ALLHEADERS_H_
+#define ALLHEADERS_H_
+
+#define DSP1    1
+#define DSP2    2
+#define DSP3    3
+
+#define CONTROLLER_ID   1
+#define CAN_TEST        0
+#define TXCOUNT         100
+
+
+
+#endif /* ALLHEADERS_H_ */

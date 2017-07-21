@@ -1,0 +1,104 @@
+#include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
+#include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
+#include "motor_control.h"
+#include "extern_variable.h"
+#include "DSP2833x_Project.h"
+#include "string.h"
+#include "ModbusSlave.h"
+#include "DSP2833x_Device.h"
+#include "DSP2833x_GlobalPrototypes.h"
+
+#define TXCOUNT  100
+
+ModbusSlave mb;
+long      i;                     //CAN
+long      loopcount = 0;         //CAN
+struct ECAN_REGS ECanaShadow;   //CAN
+
+void InitVariable(void);
+void check_modbus_query(void){
+    mb = construct_ModbusSlave();
+    mb.holdingRegisters.dummy1 = 0xF;
+    while(1) {
+        mb.loopStates(&mb);
+    }
+}
+void can_transmit(void){
+    int i;
+    for(i=0; i < TXCOUNT; i++)
+       {
+           ECanaShadow.CANTRS.all = 0;
+           ECanaShadow.CANTRS.bit.TRS25 = 1;             // Set TRS for mailbox under test
+           ECanaRegs.CANTRS.all = ECanaShadow.CANTRS.all;
+
+           do
+           {
+            ECanaShadow.CANTA.all = ECanaRegs.CANTA.all;
+           } while(ECanaShadow.CANTA.bit.TA25 == 0 );   // Wait for TA5 bit to be set..
+
+
+           ECanaShadow.CANTA.all = 0;
+           ECanaShadow.CANTA.bit.TA25 = 1;               // Clear TA5
+           ECanaRegs.CANTA.all = ECanaShadow.CANTA.all;
+
+           loopcount ++;
+        }
+
+    }
+}
+void main(void)
+{
+    Uint16  j;                      //CAN
+    InitSysCtrl();
+    InitECanGpio();                 //CAN
+	Gpio_select();	  	
+	InitPieCtrl();  // Disable PIE and clear PIEIER and PIEIFR registers
+	IER = 0x0000;
+	IFR = 0x0000;
+	InitPieVectTable();  // Initialize and enable PIE vector table
+
+	/*------ CAN test code------------------*/
+	ECanaMboxes.MBOX25.MSGID.all = 0x95555555; // Extended Identifier
+	ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
+	ECanaShadow.CANMD.bit.MD25 = 0;
+	ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
+	ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME25 = 1;
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+    ECanaMboxes.MBOX25.MSGCTRL.bit.DLC = 8;
+    ECanaMboxes.MBOX25.MDL.all = 0x55555555;
+    ECanaMboxes.MBOX25.MDH.all = 0x55555555;
+	/*--------------------------------------*/
+
+	InitEPWM();
+
+	EALLOW;
+	PieVectTable.EPWM1_INT = &epwm1_timer_isr;	
+	PieVectTable.ADCINT = &adc_isr;
+
+	EDIS; 
+	
+	SetupADC();	 
+
+	IER |= M_INT1;
+	IER |= M_INT3;
+	
+	PieCtrlRegs.PIECTRL.bit.ENPIE = 1;
+	PieCtrlRegs.PIEIER3.bit.INTx1 = 1;	//EPWM1
+	PieCtrlRegs.PIEIER1.bit.INTx6 = 1;	//ADC
+	
+	EINT;	
+	//check_modbus_query();
+	can_transmit();
+}
+void InitVariable(void)
+{
+   // Tsampcc=0.0001;
+
+}
+
+
+
+//===========================================================================
+// No more.
+//===========================================================================
