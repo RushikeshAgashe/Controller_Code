@@ -353,6 +353,8 @@ void InitECanaGpio(void)
 //  GpioCtrlRegs.GPAMUX2.bit.GPIO18 = 3;	// Configure GPIO18 for CANRXA operation
 	GpioCtrlRegs.GPAMUX2.bit.GPIO31 = 1;	// Configure GPIO31 for CANTXA operation
 //  GpioCtrlRegs.GPAMUX2.bit.GPIO19 = 3;	// Configure GPIO19 for CANTXA operation
+    GpioCtrlRegs.GPBMUX1.bit.GPIO34 = 0;
+    GpioCtrlRegs.GPBDIR.bit.GPIO34 = 1;
 
     EDIS;
 }

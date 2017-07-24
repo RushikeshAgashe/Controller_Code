@@ -34,21 +34,25 @@
 #define DSP3        3
 #define DSPtest     4
 
-#define CONTROLLER_ID           2
+#define TOGGLE_DEBUG_BIT        (GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1)
+#define SET_BIT                 (GpioDataRegs.GPBSET.bit.GPIO34 = 1)
+#define CLEAR_BIT               (GpioDataRegs.GPBCLEAR.bit.GPIO34 = 1)
+
+#define CONTROLLER_ID           3
 
 #if CONTROLLER_ID == 2
-#define MBOX_TX_MSGID           0x15AC0000
-#define MBOX_RX_MSGID           0x15AC0001
+#define MBOX0_MSGID           0x15AC0002    //Tx - MBOX
+#define MBOX1_MSGID           0x15AC0000    //Rx - MBOX
 #endif
 
 #if CONTROLLER_ID == 3
-#define MBOX_TX_MSGID           0x15AC0001
-#define MBOX_RX_MSGID           0x15AC0000
+#define MBOX0_MSGID           0x15AC0000    //Tx - MBOX
+#define MBOX1_MSGID           0x15AC0001    //Rx - MBOX
+#define MBOX2_MSGID           0x15AC0002    //Rx - MBOX
 #endif
 
-#define CAN_TEST                0
-#define TXCOUNT                 100
+#define CAN_TEST                1
+#define TXCOUNT                 101
 //#define MB_SLAVE_ID             0x01  //Defined in ModbusSettings.h
-
 
 #endif /* ALLHEADERS_H_ */

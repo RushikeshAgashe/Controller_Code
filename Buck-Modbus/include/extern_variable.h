@@ -87,6 +87,7 @@ extern void InitSPI_DAC(void);
 extern void InitEPWM();
 extern void InitQEP(void);
 extern void SetupADC(void);
+extern void SetupCAN(void);
 extern void InitECAP1(void);
 extern void InitECAP2(void);
 extern void RunECAP1Timer(void);
@@ -105,15 +106,18 @@ extern void DisableXINT1(void);
 extern void DisableXINT2(void);
 extern void SetCaptureHall(int nDirection);
 extern void GateOff();
+extern void CAN_transmit(void);
+extern void check_modbus_query(int);
 
 extern interrupt void xint1_isr(void);
 extern interrupt void xint2_isr(void);
 extern interrupt void epwm1_timer_isr(void);
 extern interrupt void adc_isr(void);
-extern interrupt void ecan0inta_isr(void);
+extern interrupt void ecan1inta_isr(void);
 
 extern void MemCopy(Uint16 *SourceAddr, Uint16* SourceEndAddr, Uint16* DestAddr);
 
+extern struct ECAN_REGS ECanaShadow;   //CAN
 
 //---------------------------------------------------------------------------
 // External symbols created by the linker cmd file
