@@ -2,18 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="construct_ModbusSlave" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="construct_ModbusSlave"/>
+			<item value="Uint32"/>
+			<item value="SLAVE_ID"/>
+			<item value="Setup"/>
+			<item value="GPB"/>
+			<item value="TOGGLE"/>
+			<item value="HISPCP"/>
 			<item value="CANGAM"/>
-			<item value="AMI"/>
-			<item value="InitECana();"/>
-			<item value="DSP2833x_Examples"/>
-			<item value="DSP2833x_Device"/>
-			<item value="time"/>
 		</list>
 		<list key="replacehistory">
 		</list>

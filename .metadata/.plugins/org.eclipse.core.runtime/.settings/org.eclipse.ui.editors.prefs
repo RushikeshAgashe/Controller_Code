@@ -1,2 +1,5 @@
+bookmarkIndication=true
+bookmarkIndicationColor=255,0,0
+bookmarkTextStyle=BOX
 eclipse.preferences.version=1
 overviewRuler_migration=migrated_3.1

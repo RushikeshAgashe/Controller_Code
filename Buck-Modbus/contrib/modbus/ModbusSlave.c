@@ -1,11 +1,12 @@
 #include "ModbusSlave.h"
 #include "ModbusSettings.h"
 #include "Log.h"
-
+#include "allHeaders.h"
 #if DEBUG_UTILS_PROFILING
 #include "Profiling.h"
 ProfilingTool profiling;
 #endif
+
 
 void slave_loopStates(ModbusSlave *self){
 	MB_SLAVE_DEBUG();
@@ -105,17 +106,23 @@ void slave_timerT35Wait(ModbusSlave *self){
 // Will receive serial data and store at dataRequest var
 void slave_receive(ModbusSlave *self){
 	MB_SLAVE_DEBUG();
-
 	// Wait to receive Slave ID and Function Code
 	//while ( ( self->serial.rxBufferStatus() < 2 ) &&
 	//	(self->serial.getRxError() == false ) ){
 	//}
-	if (( self->serial.rxBufferStatus() < 2 ) &&  (self->serial.getRxError() == false )){
-	    self->state = MB_START;
-	    return;
-	}
+
 	// Check which function code it is to adjust the size of the RX FIFO buffer
 	// In the case of function code 0x0010, it has a variable size
+#if CONTROLLER_ID == 1 || CONTROLLER_ID == 2
+	self->dataRequest = passedDataRequest;
+	self->state = MB_PROCESS;
+	slave_process(self);
+#endif
+#if CONTROLLER_ID ==3
+	if (( self->serial.rxBufferStatus() < 2 ) &&  (self->serial.getRxError() == false )){
+	        self->state = MB_START;
+	        return;
+	    }
 	self->dataRequest.slaveAddress = self->serial.getRxBufferedWord();
 	self->dataRequest.functionCode = self->serial.getRxBufferedWord();
 
@@ -181,7 +188,7 @@ void slave_receive(ModbusSlave *self){
 
 		self->state = MB_PROCESS;
 	}
-
+#endif
 	#if DEBUG_UTILS_PROFILING
 	profiling.registerStep(&profiling, profiling_MB_RECEIVE);
 	#endif
@@ -193,6 +200,7 @@ void slave_receive(ModbusSlave *self){
 void slave_process(ModbusSlave *self){
 	Uint16 sizeWithoutCrc = self->dataRequest.size - 2;
 	Uint16 generatedCrc;
+    //TOGGLE_DEBUG_BIT;
 
 	self->jumpProcessState = false;
 
@@ -212,12 +220,18 @@ void slave_process(ModbusSlave *self){
 		self->jumpProcessState = true;
 	}
 
+
 	// Requested slave address must be equal of pre-defined ID
 	if (self->dataRequest.slaveAddress != MB_SLAVE_ID && self->dataRequest.slaveAddress != 0){
 		MB_SLAVE_DEBUG("Request is not for this device!");
+		//myflag = 1;
+#if CONTROLLER_ID == 3
+		self->dataRequest.slaveIdMismatchHandler(&self->dataRequest);
+#endif
 		self->state = MB_START;
 		self->jumpProcessState = true;
 	}
+
 	#endif
 
 	if (self->jumpProcessState == false) {
@@ -269,7 +283,9 @@ void slave_process(ModbusSlave *self){
 		MB_SLAVE_DEBUG("Broadcast message - Jumping to MB_START");
 		self->state = MB_START;
 	}
-
+#if CONTROLLER_ID == 1 || CONTROLLER_ID ==2
+    slave_transmit(self);
+#endif
 	#if DEBUG_UTILS_PROFILING
 	profiling.registerStep(&profiling, profiling_MB_PROCESS);
 	#endif
@@ -278,14 +294,21 @@ void slave_process(ModbusSlave *self){
 // STATE: MB_TRANSMIT
 // Transmit all data from dataResponse throught TX and then go back to MB_START
 void slave_transmit(ModbusSlave *self){
-	MB_SLAVE_DEBUG();
+#if CONTROLLER_ID == 2 || CONTROLLER_ID == 1
+    // DataResponse is already formed transmit it to DSP3
+    CAN_transmit(&self->dataResponse);
+
+#endif
+
+#if CONTROLLER_ID ==3
+    MB_SLAVE_DEBUG();
 
 	self->serial.transmitData(self->dataResponse.getTransmitString(&self->dataResponse),
 			self->dataResponse.size);
 
 	self->state = MB_START;
 	//self->state = MB_TRANSMIT;
-
+#endif
 	#if DEBUG_UTILS_PROFILING
 	profiling.registerStep(&profiling, profiling_MB_TRANSMIT);
 	profiling.stop(&profiling);
@@ -332,6 +355,5 @@ ModbusSlave construct_ModbusSlave(){
 	modbusSlave.destroy = slave_destroy;
 
 	modbusSlave.jumpProcessState = false;
-
 	return modbusSlave;
 }
