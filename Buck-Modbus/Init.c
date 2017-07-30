@@ -38,7 +38,7 @@ void SetupADC(void)
 void SetupCAN(void)
 {
     EALLOW;
-    ECanaRegs.CANMIL.all = 0x00000003;      // Setting Interrupt level to 1
+    ECanaRegs.CANMIL.all = 0x00000007;      // Setting Interrupt level to 1
     ECanaRegs.CANMIM.all = 0x00000007;      // Enabling Interrupts for MBOX 0 ,1 & 2
     ECanaRegs.CANGIM.all = 0x00000004;      // Mapping Global Interrupts to ECAN1INT
     ECanaRegs.CANGIM.all |= 0x00000003;     // Enabling ECAN1INT and ECAN0INT interrupt lines

@@ -7,6 +7,7 @@
 ProfilingTool profiling;
 #endif
 
+
 void delay2(){
     unsigned long long int i=0;
     for(i = 0; i< 500000;i++);
@@ -111,19 +112,13 @@ void slave_timerT35Wait(ModbusSlave *self){
 void slave_receive(ModbusSlave *self){
 	MB_SLAVE_DEBUG();
 	// Wait to receive Slave ID and Function Code
-	//while ( ( self->serial.rxBufferStatus() < 2 ) &&
-	//	(self->serial.getRxError() == false ) ){
-	//}
+	while ( ( self->serial.rxBufferStatus() < 2 ) &&
+		(self->serial.getRxError() == false ) ){
+	}
 
 	// Check which function code it is to adjust the size of the RX FIFO buffer
 	// In the case of function code 0x0010, it has a variable size
-#if CONTROLLER_ID == 1 || CONTROLLER_ID == 2
-	//TOGGLE_DEBUG_BIT;
-	self->dataRequest = mb.passedDataRequest;
-	self->state = MB_PROCESS;
-	slave_process(self);
-#endif
-#if CONTROLLER_ID ==3
+
 	if (( self->serial.rxBufferStatus() < 2 ) &&  (self->serial.getRxError() == false )){
 	        self->state = MB_START;
 	        return;
@@ -193,7 +188,6 @@ void slave_receive(ModbusSlave *self){
 
 		self->state = MB_PROCESS;
 	}
-#endif
 	#if DEBUG_UTILS_PROFILING
 	profiling.registerStep(&profiling, profiling_MB_RECEIVE);
 	#endif
@@ -203,9 +197,12 @@ void slave_receive(ModbusSlave *self){
 // Do the "magic". Check if the request have the right CRC and is for this device
 // After first checks, it will begin the requested funcion code and prepare the dataResponse
 void slave_process(ModbusSlave *self){
-	Uint16 sizeWithoutCrc = self->dataRequest.size - 2;
+#if CONTROLLER_ID == 1 || CONTROLLER_ID == 2
+    self->dataRequest = mb.passedDataRequest;
+#endif
+
+    Uint16 sizeWithoutCrc = self->dataRequest.size - 2;
 	Uint16 generatedCrc;
-    //TOGGLE_DEBUG_BIT;
 
 	self->jumpProcessState = false;
 
@@ -220,7 +217,7 @@ void slave_process(ModbusSlave *self){
 	// Check if the received CRC is equal to locally generated CRC
 	if (generatedCrc != self->dataRequest.crc) {
 		MB_SLAVE_DEBUG("Error on CRC!");
-		self->dataHandler.exception(self, MB_ERROR_ILLEGALDATA);
+		//self->dataHandler.exception(self, MB_ERROR_ILLEGALDATA);
 		self->state = MB_TRANSMIT;
 		self->jumpProcessState = true;
 	}
@@ -231,7 +228,7 @@ void slave_process(ModbusSlave *self){
 		MB_SLAVE_DEBUG("Request is not for this device!");
 
     #if CONTROLLER_ID == 3
-        self->dataRequest.completed = 1;
+        //self->dataRequest.completed = 1;
         self->dataRequest.slaveIdMismatchHandler(&self->dataRequest);
     #endif
 
@@ -291,7 +288,7 @@ void slave_process(ModbusSlave *self){
 		self->state = MB_START;
 	}
 #if CONTROLLER_ID == 1 || CONTROLLER_ID ==2
-    slave_transmit(self);
+    if (self->jumpProcessState == false) {CAN_transmit(&self->dataResponse);}
 #endif
 	#if DEBUG_UTILS_PROFILING
 	profiling.registerStep(&profiling, profiling_MB_PROCESS);
@@ -299,23 +296,23 @@ void slave_process(ModbusSlave *self){
 }
 
 // STATE: MB_TRANSMIT
-// Transmit all data from dataResponse throught TX and then go back to MB_START
+// Transmit all data from dataResponse through TX and then go back to MB_START
 void slave_transmit(ModbusSlave *self){
-    #if CONTROLLER_ID == 2 || CONTROLLER_ID == 1
-        // DataResponse is already formed transmit it to DSP3
-        //self->dataResponse
-        CAN_transmit(&self->dataResponse);
+    MB_SLAVE_DEBUG();
+    if(pass_flag == 1)
+    {
+    self->dataResponse = mb.passedDataResponse;
+    pass_flag = 0;
+    self->serial.transmitData(self->dataResponse.getTransmitString(&self->dataResponse),
+                    self->dataResponse.size);
+    }
+    else{
+    self->serial.transmitData(self->dataResponse.getTransmitString(&self->dataResponse),
+            self->dataResponse.size);
 
-    #endif
+    self->state = MB_START;
+    }
 
-    #if CONTROLLER_ID ==3
-        MB_SLAVE_DEBUG();
-
-        self->serial.transmitData(self->dataResponse.getTransmitString(&self->dataResponse),
-                self->dataResponse.size);
-
-        self->state = MB_START;
-    #endif
 	#if DEBUG_UTILS_PROFILING
 	profiling.registerStep(&profiling, profiling_MB_TRANSMIT);
 	profiling.stop(&profiling);

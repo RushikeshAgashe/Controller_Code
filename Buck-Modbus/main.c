@@ -9,6 +9,8 @@
 ModbusSlave mb;
 
 volatile int RX_Flag = 0;
+volatile int pass_flag = 0;
+
 #if CAN_TEST
 
 long      i;                    //CAN
@@ -67,22 +69,6 @@ void main(void)
     ECanaShadow.CANME.bit.ME0 = 1;                      // MBOX0 Enable
     ECanaRegs.CANME.all = ECanaShadow.CANME.all;
 
-    /*----------Configuring MBOX1 for Rx----------*/
-    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
-    ECanaShadow.CANME.bit.ME1 = 0;                      // MBOX1 Disable
-    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
-
-    ECanaMboxes.MBOX1.MSGID.all = MBOX1_MSGID;          // MSGID for MBOX1
-    ECanaMboxes.MBOX1.MSGCTRL.bit.DLC = 8;              // 8 bits will be Rx'ed
-
-    ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
-    ECanaShadow.CANMD.bit.MD1 = 1;                      // MBOX1 Direction Rx
-    ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
-
-    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
-    ECanaShadow.CANME.bit.ME1 = 1;                      // MBOX1 Enable
-    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
-
 //#if CONTROLLER_ID == 3
 //    /*----------Configuring MBOX2 for Rx----------*/
 //    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
@@ -100,6 +86,23 @@ void main(void)
 //    ECanaShadow.CANME.bit.ME2 = 1;                      // MBOX2 Enable
 //    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
 //#endif
+
+    /*----------Configuring MBOX1 for Rx----------*/
+    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME1 = 0;                      // MBOX1 Disable
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+
+    ECanaMboxes.MBOX1.MSGID.all = MBOX1_MSGID;          // MSGID for MBOX1
+    ECanaMboxes.MBOX1.MSGCTRL.bit.DLC = 8;              // 8 bits will be Rx'ed
+
+    ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
+    ECanaShadow.CANMD.bit.MD1 = 1;                      // MBOX1 Direction Rx
+    ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
+
+    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+    ECanaShadow.CANME.bit.ME1 = 1;                      // MBOX1 Enable
+    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+
 
     EALLOW;
     PieVectTable.ECAN1INTA = &ecan1inta_isr;
@@ -136,14 +139,11 @@ void main(void)
 
     EINT;
     construct_ModbusSlave(&mb);
-    //while(1);
 #if CONTROLLER_ID == 1 || CONTROLLER_ID == 2
-
     while(1){
-        //CAN_transmit(&mb.dataRequest);
         while(RX_Flag == 0);
         RX_Flag = 0;
-        mb.receive(&mb);
+        mb.process(&mb);
     }
 #endif
 #if CAN_TEST && CONTROLLER_ID == 3
