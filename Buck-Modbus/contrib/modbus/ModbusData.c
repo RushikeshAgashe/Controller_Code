@@ -11,6 +11,7 @@ void data_clear(ModbusData *self){
 	self->size = 0;
 	self->contentIdx = 0;
 	self->crc = 0;
+	self->completed = 0;
 }
 
 // Return a string with the data that will be transmited
@@ -58,21 +59,20 @@ void slave_id_mismatch_handler(ModbusData *self){
     CAN_transmit(self);
 }
 
-ModbusData construct_ModbusData(){
-	ModbusData modbusData;
+void construct_ModbusData(ModbusData *self){
+    //ModbusData modbusData;
 
-	modbusData.slaveAddress = 0;
-	modbusData.functionCode = 0;
-	modbusData.contentIdx = 0;
-	modbusData.crc = 0;
-	modbusData.size = 0;
-	modbusData.slaveIdMismatchHandler = slave_id_mismatch_handler;
+    self->slaveAddress = 0;
+    self->functionCode = 0;
+    self->contentIdx = 0;
+    self->crc = 0;
+    self->size = 0;
+    self->completed = 0;
+    self->slaveIdMismatchHandler = slave_id_mismatch_handler;
 
-	modbusData.clear = data_clear;
-	modbusData.getTransmitString = data_getTransmitString;
-	modbusData.getTransmitStringWithoutCRC = data_getTransmitStringWithoutCRC;
+    self->clear = data_clear;
+    self->getTransmitString = data_getTransmitString;
+    self->getTransmitStringWithoutCRC = data_getTransmitStringWithoutCRC;
 
-	MB_DATA_RESPONSE_DEBUG();
-
-	return modbusData;
+    MB_DATA_RESPONSE_DEBUG();
 }

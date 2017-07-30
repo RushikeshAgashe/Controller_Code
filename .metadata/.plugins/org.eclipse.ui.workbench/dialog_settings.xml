@@ -8,30 +8,23 @@
 		<item value="250" key="dialogHeight"/>
 		<item value="350" key="dialogWidth"/>
 		<list key="textEntries">
-			<item value="3"/>
 			<item value="1"/>
-			<item value="2"/>
+			<item value="1"/>
 			<item value="1"/>
 		</list>
 		<list key="orderedElements">
-			<item value="org.eclipse.search.TextSearchProject"/>
+			<item value="org.eclipse.search.ui.performTextSearchProject"/>
 			<item value="org.eclipse.ui.preferencePages.ColorsAndFonts"/>
-			<item value="org.eclipse.ui.edit.addBookmark"/>
 			<item value="org.eclipse.cdt.ui.preferences.FoldingPreferencePage"/>
 		</list>
 		<list key="orderedProviders">
-			<item value="org.eclipse.ui.actions"/>
-			<item value="org.eclipse.ui.preferences"/>
 			<item value="org.eclipse.ui.commands"/>
+			<item value="org.eclipse.ui.preferences"/>
 			<item value="org.eclipse.ui.preferences"/>
 		</list>
 		<list key="textArray">
-			<item value="sear"/>
-			<item value="sea"/>
-			<item value="se"/>
+			<item value="searc"/>
 			<item value="color"/>
-			<item value="add"/>
-			<item value="a"/>
 			<item value="foldi"/>
 		</list>
 	</section>

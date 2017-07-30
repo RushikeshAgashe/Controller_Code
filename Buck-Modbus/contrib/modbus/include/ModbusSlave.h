@@ -16,6 +16,9 @@ struct ModbusSlave {
 
 	ModbusData dataRequest;
 	ModbusData dataResponse;
+	//Uint16 test;
+	ModbusData passedDataRequest;
+	ModbusData passedDataResponse;
 
 #if MB_COILS_ENABLED
 	ModbusCoilsMap coils;
@@ -56,8 +59,8 @@ inline void slave_receive(ModbusSlave *self);
 inline void slave_process(ModbusSlave *self);
 inline void slave_transmit(ModbusSlave *self);
 inline void slave_destroy(ModbusSlave *self);
-ModbusSlave construct_ModbusSlave();
-
+//ModbusSlave construct_ModbusSlave();
+void construct_ModbusSlave(ModbusSlave *self);
 extern ModbusSlave mb;
 
 #endif

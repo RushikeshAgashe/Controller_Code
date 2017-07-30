@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="construct_ModbusSlave" key="selection"/>
+		<item value="passedDataResponse" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="passedDataResponse"/>
 			<item value="construct_ModbusSlave"/>
 			<item value="Uint32"/>
 			<item value="SLAVE_ID"/>
@@ -15,7 +16,6 @@
 			<item value="GPB"/>
 			<item value="TOGGLE"/>
 			<item value="HISPCP"/>
-			<item value="CANGAM"/>
 		</list>
 		<list key="replacehistory">
 		</list>

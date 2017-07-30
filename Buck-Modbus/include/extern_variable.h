@@ -107,7 +107,7 @@ extern void DisableXINT2(void);
 extern void SetCaptureHall(int nDirection);
 extern void GateOff();
 //extern void CAN_transmit(ModbusData dataRequest);
-extern void check_modbus_query(unsigned long *);
+extern void check_modbus_query(unsigned int *);
 
 extern interrupt void xint1_isr(void);
 extern interrupt void xint2_isr(void);

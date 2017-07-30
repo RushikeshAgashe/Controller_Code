@@ -12,50 +12,50 @@ Uint32  TestMbox1 = 0;
 Uint32  TestMbox2 = 0;
 Uint32  TestMbox3 = 0;
 
-Uint16  wTestMbox1 = 0;
-Uint16  wTestMbox2 = 0;
-Uint16  wTestMbox3 = 0;
-
 Uint32  ErrorCount = 0;
 Uint32  PassCount = 0;
 Uint32  MessageReceivedCount = 0;
 
-ModbusData passedDataRequest,passedDataResponse;
-//ModbusSlave mb;
-unsigned long *recBufferPointer = (unsigned long *)&passedDataRequest;
-unsigned long *txBufferPointer = (unsigned long *)&passedDataResponse;
 
-void construct_message()
-{
-    *(recBufferPointer++) = TestMbox1;
-    *(recBufferPointer++) = TestMbox2;
+volatile unsigned int *txBufferPointer = (unsigned int *)&mb.passedDataResponse;
+volatile unsigned int *recBufferPointer = (unsigned int *)&mb.passedDataRequest;
+void delay(){
+    unsigned long long int i=0;
+    for(i = 0; i< 500000;i++);
 }
 
+void debug_func(){
+    unsigned int i = 2;
+    while(i > 0){
+        delay();
+        TOGGLE_DEBUG_BIT;
+        delay();
+        TOGGLE_DEBUG_BIT;
+        i--;
+    }
+}
 void mailbox_read(int16 MBXnbr)
 {
    volatile struct MBOX *Mailbox;
    Mailbox = &ECanaMboxes.MBOX0 + MBXnbr;
+
    *(recBufferPointer++) = Mailbox->MDL.all;
    *(recBufferPointer++) = Mailbox->MDH.all;
-   //wTestMbox1 = (Mailbox->MDL.all & 0x0000FFFF);            // = 0x15AC000n (n is the MBX number)
-   //wTestMbox2 = (Mailbox->MDL.all & 0xFFFF0000) >> 16;            // = 0x15AC000n (n is the MBX number)
-   TestMbox1 = Mailbox->MDL.all;
-   TestMbox2 = Mailbox->MDH.all;            // = 0xF0F0F0F0 (a constant)
-   TestMbox3 = Mailbox->MSGID.all;          // = 0x15AC000n (n is the MBX number)
-   construct_message();
+//
+//   *(txbufferPointer++) = Mailbox->MDL.all;
+//   *(txbufferPointer++) = Mailbox->MDH.all;
+
 } // MSGID of a rcv MBX is transmitted as the MDL data.
 
 
 volatile short status = 5;
-
 void CAN_transmit(ModbusData *self){
-    int i;
-    unsigned long *bufferPointer = (unsigned long *)self;
-    //check_modbus_query(*bufferPointer);
-    //int message = 0x01;
-    for(i=0; i < sizeof(ModbusData); i+=2)
+    unsigned int i, *bufferPointer = (unsigned int *)self;
+    for(i=0; i <= sizeof(ModbusData); i+=2)
+    //while (1)
         {
            status = 0;
+
            ECanaMboxes.MBOX0.MDL.all = *(bufferPointer++);    // Message Data Reg Low - MSGID
            ECanaMboxes.MBOX0.MDH.all = *(bufferPointer++);    // Constant TEST DATA
 
@@ -66,14 +66,10 @@ void CAN_transmit(ModbusData *self){
         }
 }
 
-void delay(){
-    unsigned long long int i=0;
-    for(i = 0; i< 500000;i++);
-}
 interrupt void ecan1inta_isr(void){
-
+    //debug_func();
     ECanaShadow.CANGIF1.all = ECanaRegs.CANGIF1.all;
-    //TOGGLE_DEBUG_BIT;
+
     /* MBOX0 Caused Interrupt*/
     if (ECanaShadow.CANGIF1.bit.MIV1 == 0)
     {
@@ -88,31 +84,22 @@ interrupt void ecan1inta_isr(void){
     else if (ECanaShadow.CANGIF1.bit.MIV1 == 1)
     {
         // Message Handling Code goes here
-        int i=0;
-        mailbox_read(ECanaShadow.CANGIF1.bit.MIV1);
-
 #if CONTROLLER_ID == 1 || CONTROLLER_ID ==2
-      // slave->receive function
-        i = passedDataRequest.slaveAddress;
-        while(i>0){
-            TOGGLE_DEBUG_BIT;
-            delay();
-            TOGGLE_DEBUG_BIT;
-            delay();
-            i--;
-        }
-        //TOGGLE_DEBUG_BIT;
-        //mb = construct_ModbusSlave();
-        //mb.receive(&mb);
+        mailbox_read(ECanaShadow.CANGIF1.bit.MIV1);
+        if(mb.passedDataRequest.completed == 1){
+               debug_func();
+               recBufferPointer = (unsigned int *)&mb.passedDataRequest;  //Re-initialize pointer to base address of passedDataRequest
+               mb.passedDataRequest.completed = 0;
+               RX_Flag = 1;
+               //mb.receive(&mb);
+          }
 #endif
-#if CONTROLLER_ID == 3
-      // slave->transmit function
-      //TOGGLE_DEBUG_BIT;
-#endif
-        //unsigned long *testPointer = (unsigned long *)&passedDataRequest;
-        //i = passedDataRequest.functionCode+1;
 
 
+        #if CONTROLLER_ID == 3
+//        mailbox_read(ECanaShadow.CANGIF1.bit.MIV1);
+        debug_func();
+        #endif
         ECanaRegs.CANRMP.all = 0x00000002;
     }
 
@@ -120,15 +107,12 @@ interrupt void ecan1inta_isr(void){
     else if (ECanaShadow.CANGIF1.bit.MIV1 == 2)
     {
         // Message Handling Code goes here
-        mailbox_read(ECanaShadow.CANGIF1.bit.MIV1);
-        ECanaRegs.CANRMP.all = 0x00000002;
+        debug_func();
+        ECanaRegs.CANRMP.all = 0x00000004;
     }
 
     PieCtrlRegs.PIEACK.bit.ACK9 = 1;
     IER |= 0x0100;
-
-    //mailbox_read(1);                                //Read MBOX1
-    //mailbox_check(TestMbox1,TestMbox2,TestMbox3);
 }
 #endif
 

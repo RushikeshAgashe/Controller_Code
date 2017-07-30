@@ -8,6 +8,7 @@
 
 ModbusSlave mb;
 
+volatile int RX_Flag = 0;
 #if CAN_TEST
 
 long      i;                    //CAN
@@ -17,7 +18,7 @@ struct ECAN_REGS ECanaShadow;   //CAN
 #endif
 
 void InitVariable(void);
-void check_modbus_query(unsigned long *message){
+void check_modbus_query(unsigned int *message){
     while(1){
         mb.holdingRegisters.dummy1 = *message;
         mb.loopStates(&mb);
@@ -71,7 +72,7 @@ void main(void)
     ECanaShadow.CANME.bit.ME1 = 0;                      // MBOX1 Disable
     ECanaRegs.CANME.all = ECanaShadow.CANME.all;
 
-    ECanaMboxes.MBOX1.MSGID.all = MBOX1_MSGID;        // MSGID for MBOX1
+    ECanaMboxes.MBOX1.MSGID.all = MBOX1_MSGID;          // MSGID for MBOX1
     ECanaMboxes.MBOX1.MSGCTRL.bit.DLC = 8;              // 8 bits will be Rx'ed
 
     ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
@@ -82,23 +83,24 @@ void main(void)
     ECanaShadow.CANME.bit.ME1 = 1;                      // MBOX1 Enable
     ECanaRegs.CANME.all = ECanaShadow.CANME.all;
 
-#if CONTROLLER_ID == 3
-    /*----------Configuring MBOX2 for Rx----------*/
-    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
-    ECanaShadow.CANME.bit.ME2 = 0;                      // MBOX2 Disable
-    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+//#if CONTROLLER_ID == 3
+//    /*----------Configuring MBOX2 for Rx----------*/
+//    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+//    ECanaShadow.CANME.bit.ME2 = 0;                      // MBOX2 Disable
+//    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+//
+//    ECanaMboxes.MBOX2.MSGID.all = MBOX2_MSGID;        // MSGID for MBOX2
+//    ECanaMboxes.MBOX2.MSGCTRL.bit.DLC = 8;              // 8 bits will be Rx'ed
+//
+//    ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
+//    ECanaShadow.CANMD.bit.MD2 = 1;                      // MBOX2 Direction Rx
+//    ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
+//
+//    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
+//    ECanaShadow.CANME.bit.ME2 = 1;                      // MBOX2 Enable
+//    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
+//#endif
 
-    ECanaMboxes.MBOX2.MSGID.all = MBOX2_MSGID;        // MSGID for MBOX2
-    ECanaMboxes.MBOX2.MSGCTRL.bit.DLC = 8;              // 8 bits will be Rx'ed
-
-    ECanaShadow.CANMD.all = ECanaRegs.CANMD.all;
-    ECanaShadow.CANMD.bit.MD2 = 1;                      // MBOX2 Direction Rx
-    ECanaRegs.CANMD.all = ECanaShadow.CANMD.all;
-
-    ECanaShadow.CANME.all = ECanaRegs.CANME.all;
-    ECanaShadow.CANME.bit.ME2 = 1;                      // MBOX2 Enable
-    ECanaRegs.CANME.all = ECanaShadow.CANME.all;
-#endif
     EALLOW;
     PieVectTable.ECAN1INTA = &ecan1inta_isr;
     ECanaShadow.CANMC.all = ECanaRegs.CANMC.all;
@@ -133,12 +135,21 @@ void main(void)
     PieCtrlRegs.PIEIER9.bit.INTx6 = 1;  //CAN
 
     EINT;
+    construct_ModbusSlave(&mb);
+    //while(1);
+#if CONTROLLER_ID == 1 || CONTROLLER_ID == 2
 
+    while(1){
+        //CAN_transmit(&mb.dataRequest);
+        while(RX_Flag == 0);
+        RX_Flag = 0;
+        mb.receive(&mb);
+    }
+#endif
 #if CAN_TEST && CONTROLLER_ID == 3
     //CAN_transmit(self);
-    mb = construct_ModbusSlave();
-    unsigned long *p = (unsigned long *)&mb.dataRequest;
-    check_modbus_query(p+1);
+    unsigned int *p = (unsigned int *)&mb.dataRequest;
+    check_modbus_query(p);
 #endif
 }
 void InitVariable(void)
