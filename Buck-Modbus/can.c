@@ -16,9 +16,6 @@ Uint32  ErrorCount = 0;
 Uint32  PassCount = 0;
 Uint32  MessageReceivedCount = 0;
 
-
-volatile unsigned int *txBufferPointer = (unsigned int *)&mb.passedDataResponse;
-volatile unsigned int *recBufferPointer = (unsigned int *)&mb.passedDataRequest;
 void delay(){
     unsigned long long int i=0;
     for(i = 0; i< 500000;i++);
@@ -81,49 +78,39 @@ interrupt void ecan1inta_isr(void){
     }
 
     /* MBOX1 Caused Interrupt*/
-    else if (ECanaShadow.CANGIF1.bit.MIV1 == 1)
+    //else if (ECanaShadow.CANGIF1.bit.MIV1 == 1)
+    else if (ECanaRegs.CANRMP.all == 0x00000002)
     {
         // Message Handling Code goes here
 #if CONTROLLER_ID == 1 || CONTROLLER_ID ==2
-        mailbox_read(ECanaShadow.CANGIF1.bit.MIV1);
+        mailbox_read(1);
         if(mb.passedDataRequest.completed == 1){
-               debug_func();
-               recBufferPointer = (unsigned int *)&mb.passedDataRequest;  //Re-initialize pointer to base address of passedDataRequest
-               mb.passedDataRequest.completed = 0;
+               //debug_func();
+               delay();
+               //recBufferPointer = (unsigned int *)&mb.passedDataRequest;  //Re-initialize pointer to base address of passedDataRequest
+               //mb.passedDataRequest.completed = 0;
                RX_Flag = 1;
           }
 #endif
 
 
-        #if CONTROLLER_ID == 3
-        mailbox_read(ECanaShadow.CANGIF1.bit.MIV1);
-        if(mb.passedDataResponse.completed == 1){
-          // debug_func();
+#if CONTROLLER_ID == 3
+        mailbox_read(1);
+      if(mb.passedDataResponse.completed == 1){
+           //debug_func();
            txBufferPointer = (unsigned int *)&mb.passedDataResponse;  //Re-initialize pointer to base address of passedDataRequest
            mb.passedDataResponse.completed = 0;
            pass_flag = 1;
            mb.transmit(&mb);
           }
-        #endif
+#endif
         ECanaRegs.CANRMP.all = 0x00000002;
     }
 
-    /* MBOX2 Caused Interrupt*/
-    else if (ECanaShadow.CANGIF1.bit.MIV1 == 2)
-    {
-        // Message Handling Code goes here
-//        mailbox_read(2);
-//        if(mb.passedDataResponse.completed == 1){
-//        debug_func();
-//        txBufferPointer = (unsigned int *)&mb.passedDataResponse;  //Re-initialize pointer to base address of passedDataRequest
-//        mb.passedDataResponse.completed = 0;
-//        mb.transmit(&mb);
-//        ECanaRegs.CANRMP.all = 0x00000004;
-//        }
-    }
-
+    //PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
     PieCtrlRegs.PIEACK.bit.ACK9 = 1;
     IER |= 0x0100;
+    //EINT;
 }
 #endif
 

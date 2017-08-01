@@ -5,12 +5,12 @@
 #include "Crc.h"
 #include "math.h"
 void datahandler_readDigitalData(ModbusSlave *slave, ModbusFunctionCode funcCode) {
-	// Each requested register has two bytes inside of it, so the code has to multiply by 2
+    // Each requested register has two bytes inside of it, so the code has to multiply by 2
 	Uint16 firstAddr = (slave->dataRequest.content[MB_READ_ADDRESS_HIGH] << 8) |
 			slave->dataRequest.content[MB_READ_ADDRESS_LOW];
 	Uint16 totalData = (slave->dataRequest.content[MB_READ_TOTALDATA_HIGH] << 8) |
 			slave->dataRequest.content[MB_READ_TOTALDATA_LOW];
-	Uint16 numberOfBytes = ceil(totalData/8 + 0.5);
+		Uint16 numberOfBytes = ceil(totalData/8 + 0.5);
 
 	Uint16 sizeWithoutCRC;
 	Uint16 * transmitString;
@@ -131,9 +131,11 @@ void datahandler_readAnalogData(ModbusSlave *slave, ModbusFunctionCode funcCode)
 	// Generate CRC
 	sizeWithoutCRC = slave->dataResponse.size - 2;
 	transmitString = slave->dataResponse.getTransmitStringWithoutCRC(&slave->dataResponse);
-	slave->dataResponse.crc = generateCrc( transmitString, sizeWithoutCRC, true);
+
+    slave->dataResponse.crc = generateCrc( transmitString, sizeWithoutCRC, true);
 
 	MB_DATA_HANDLER_DEBUG();
+
 }
 
 void datahandler_presetSingleRegister(ModbusSlave *slave){
