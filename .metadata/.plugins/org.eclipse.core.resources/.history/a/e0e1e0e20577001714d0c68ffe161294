@@ -55,7 +55,6 @@ void CAN_transmit(ModbusData *self){
            status = 0;
            ECanaMboxes.MBOX0.MDL.all = *(bufferPointer++);    // Message Data Reg Low - MSGID
            ECanaMboxes.MBOX0.MDH.all = *(bufferPointer++);    // Constant TEST DATA
-
            ECanaShadow.CANTRS.all = ECanaRegs.CANTRS.all;
            ECanaShadow.CANTRS.bit.TRS0 = 1;             // Begin Transmission
            ECanaRegs.CANTRS.all = ECanaShadow.CANTRS.all;
@@ -78,23 +77,21 @@ interrupt void ecan1inta_isr(void){
     /* MBOX1 Caused Interrupt*/
     else if (ECanaRegs.CANRMP.all == 0x00000002)
     {
-        #if CONTROLLER_ID == 1 || CONTROLLER_ID ==2
         mailbox_read(1);
         if(mb.passedDataRequest.completed == 1){
+        #if CONTROLLER_ID == 1 || CONTROLLER_ID ==2
                delay();
                RX_Flag = 1;
-          }
         #endif
 
         #if CONTROLLER_ID == 3
-        mailbox_read(1);
-      if(mb.passedDataResponse.completed == 1){
            txBufferPointer = (unsigned int *)&mb.passedDataResponse;  //Re-initialize pointer to base address of passedDataRequest
            mb.passedDataResponse.completed = 0;
            pass_flag = 1;
            mb.transmit(&mb);
-          }
         #endif
+          }
+
         ECanaRegs.CANRMP.all = 0x00000002;
     }
 

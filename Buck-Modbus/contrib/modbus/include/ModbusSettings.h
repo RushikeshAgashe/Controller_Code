@@ -7,7 +7,7 @@
 //#include "include/allHeaders.h"
 // Modbus settings ========================================
 
-#define MB_SLAVE_ID				0x02
+#define MB_SLAVE_ID				0x03
 
 #define MB_CHECKS				true	// ID check and CRC check (enabled by default)
 #define MB_BUFFER_SIZE			256		// Size of content buffer on ModbusData - Depends on the size of your memory map
