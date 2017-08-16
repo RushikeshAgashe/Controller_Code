@@ -36,7 +36,7 @@ void main(void)
     IFR = 0x0000;
     InitPieVectTable();             // Initialize and enable PIE vector table
     InitECana();                    //CAN
-    MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
+    MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);  // Required while using F28335.cmd
     InitFlash();
     TOGGLE_DEBUG_BIT;
 

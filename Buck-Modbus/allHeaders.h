@@ -41,7 +41,7 @@
 #define SET_BIT                 (GpioDataRegs.GPBSET.bit.GPIO34 = 1)
 #define CLEAR_BIT               (GpioDataRegs.GPBCLEAR.bit.GPIO34 = 1)
 
-#define CONTROLLER_ID           3
+#define CONTROLLER_ID           1
 
 #if CONTROLLER_ID == 2
 #define MBOX0_MSGID           0x15AC0001    //Tx - MBOX

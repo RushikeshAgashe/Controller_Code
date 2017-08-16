@@ -81,7 +81,7 @@ void VoltageControl_1(void)
     static FLT32 Rd1 = 0.25;
     SoC_Balancing_Disable = mb.holdingRegisters.dummy8;
     //Virtual Resistance Calculator
-    if (SoC_Balancing_Disable > 0)
+    if (SoC_Balancing_Disable == 1)
     {
     Vdc_max1=400;
     Vdc_min1=360;
@@ -136,8 +136,9 @@ void VoltageControl_2(void)
 
     static enum Flags flag;
     //Virtual Resistance Calculator
-    SoC_Balancing_Disable = mb.holdingRegisters.dummy8;
-    if(SoC_Balancing_Disable > 0){
+    if(mb.holdingRegisters.dummy8 > 0)
+        SoC_Balancing_Disable = 1;
+    if(SoC_Balancing_Disable == 1){
     Vdc_max2=400;
     Vdc_min2=360;
     Idis_max2=80;

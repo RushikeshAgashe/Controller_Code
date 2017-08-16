@@ -335,7 +335,7 @@ interrupt void  adc_isr(void)
 #endif
 #if CONTROLLER_ID == 1
     mb.holdingRegisters.dummy4 = Rd1_val;
-    mb.holdingRegisters.dummy5 = Rd2_val;
+    mb.holdingRegisters.dummy5 = SoC_Balancing_Disable;
     Battery1_SoC  = AdcMirror.ADCRESULT5;
     Battery1_SoC_f  = filter_SoC(Battery1_SoC,Battery1_SoC_buffer);
     Battery1_SoC_out = ((FLT32)(Battery1_SoC_f-2047.5)*500)/(2047.5); //

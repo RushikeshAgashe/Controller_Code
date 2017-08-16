@@ -81,28 +81,28 @@ void VoltageControl_1(void)
     static FLT32 Rd1 = 0.25;
     SoC_Balancing_Disable = mb.holdingRegisters.dummy8;
     //Virtual Resistance Calculator
-    if (SoC_Balancing_Disable > 0)
-    {
+//    if (SoC_Balancing_Disable> 0)
+//    {
     Vdc_max1=400;
     Vdc_min1=360;
     Idis_max1=80;
     Icharge_max1=80;
     Rd1= (Vdc_max1-Vdc_min1)/(Idis_max1+Icharge_max1);
     beta = AverageSoC/Battery1_SoC_out;
-    }
-    else{
-    if(I_L1 < 0 || I_L2 < 0)
-        Rd1 = Rd1 / beta;
-    else
-        Rd1 = Rd1 * beta;
-
-    if (Rd1 > 0.5)
-        Rd1 = 0.5;
-    else if (Rd1 < 0.25)
-        Rd1 = 0.25;
-    else
-        Rd1 = Rd1;
-    }
+    //}
+    //else{
+//    if(I_L1 < 0 || I_L2 < 0)
+//        Rd1 = Rd1 / beta;
+//    else
+//        Rd1 = Rd1 * beta;
+//
+//    if (Rd1 > 0.5)
+//        Rd1 = 0.5;
+//    else if (Rd1 < 0.25)
+//        Rd1 = 0.25;
+//    else
+//        Rd1 = Rd1;
+    //}
 	V_ref1=(380-Rd1*I_L1);
 	Kp_vc1=0.01;
 	Ki_vc1=2;
