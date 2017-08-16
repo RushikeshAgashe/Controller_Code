@@ -7,7 +7,8 @@ SHELL = cmd.exe
 # Add inputs and outputs from these tool invocations to the build variables 
 CMD_SRCS += \
 ../src/28335_RAM_lnk.cmd \
-../src/DSP2833x_Headers_nonBIOS.cmd 
+../src/DSP2833x_Headers_nonBIOS.cmd \
+../src/F28335.cmd 
 
 ASM_SRCS += \
 ../src/DSP2833x_ADC_cal.asm \

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExportImportMemento.1>
+<VarMeta IMemento.internal.id="V_ref3"/>
+<VarMeta IMemento.internal.id="err_v3"/>
+<VarMeta IMemento.internal.id="direction"/>
+<VarMeta IMemento.internal.id="V_In3"/>
+<VarMeta IMemento.internal.id="P_3"/>
+<VarMeta IMemento.internal.id="diff"/>
+<VarMeta IMemento.internal.id="avg_P_3"/>
+<VarMeta IMemento.internal.id="prev_P_3"/>
+<VarMeta IMemento.internal.id="V_C3"/>
+<VarMeta IMemento.internal.id="V_out"/>
+<VarMeta IMemento.internal.id="I_L3"/>
+<VarMeta IMemento.internal.id="sum_P_3"/>
+<VarMeta IMemento.internal.id="MPPT_counter"/>
+</ExportImportMemento.1>

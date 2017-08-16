@@ -153,7 +153,7 @@ void serial_transmitData(Uint16 * data, Uint16 size){
 		}
 	}
 
-	// If you want to wait until the TX buffer is empty, uncomment line below
+	// If you want to wait until the TX buffer is empty, take the comment line below
 //	while (SciaRegs.SCICTL2.bit.TXEMPTY != true) ;
 }
 

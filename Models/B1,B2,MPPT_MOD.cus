@@ -1,0 +1,1420 @@
+<ui_settings>
+    <version>2.1</version>
+    <model_locked>False</model_locked>
+    <canvas_bg_color>#ffffff</canvas_bg_color>
+    <initialization_code><![CDATA[# NOTE: Variables and functions defined here will be
+# available for use in all Macro and Expression scripts.
+# This code is always executed prior simulation start.
+# HIL API
+import typhoon.api.hil as hil
+
+# Variable 'SETTINGS_DIR' holds directory where loaded Panel .cus file is located.
+# Also you can call 'get_settings_dir_path()' function in any
+# Macro and Expression scripts to get the same directory.
+SETTINGS_DIR = get_settings_dir_path()
+
+# Numpy module is imported as 'np'
+# Scipy module is imported as 'sp'
+
+from typhoon.model.hil import model as mod
+
+batteryobj = mod.Battery()
+SoC = batteryobj._statOfChargeValue
+]]></initialization_code>
+    <components>
+        <component_data>
+                <id>26d9125e3a7e11e78891842b2ba3d275</id>
+                <name><![CDATA[PV]]></name>
+                <type>Gauge</type>
+                <description><![CDATA[]]></description>
+                <data_type>Analog signal</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = 0.0
+
+]]></code>
+                <signal_name><![CDATA[PV_in]]></signal_name>
+                <unit><![CDATA[V]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>56.0</x>
+                    <y>40.0</y>
+                    <width>248</width>
+                    <height>144</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <min>0.0</min>
+                    <max>1000.0</max>
+                    <warning_range>(0, 0, 0, 0)</warning_range>
+                    <critical_range>(0, 0, 0, 0)</critical_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>39e3a5003a7e11e7a0b2842b2ba3d275</id>
+                <name><![CDATA[V_out]]></name>
+                <type>Gauge</type>
+                <description><![CDATA[]]></description>
+                <data_type>Analog signal</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = 0.0
+
+]]></code>
+                <signal_name><![CDATA[C_B1]]></signal_name>
+                <unit><![CDATA[V]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>400.0</x>
+                    <y>40.0</y>
+                    <width>248</width>
+                    <height>144</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <min>0.0</min>
+                    <max>1000.0</max>
+                    <warning_range>(0, 0, 0, 0)</warning_range>
+                    <critical_range>(0, 0, 0, 0)</critical_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>45ea1af03a7e11e7b360842b2ba3d275</id>
+                <name><![CDATA[I_PV]]></name>
+                <type>Gauge</type>
+                <description><![CDATA[]]></description>
+                <data_type>Analog signal</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = 0.0
+
+]]></code>
+                <signal_name><![CDATA[L_PV]]></signal_name>
+                <unit><![CDATA[A]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>56.0</x>
+                    <y>208.0</y>
+                    <width>248</width>
+                    <height>144</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <min>0.0</min>
+                    <max>50.0</max>
+                    <warning_range>(0, 0, 0, 0)</warning_range>
+                    <critical_range>(0, 0, 0, 0)</critical_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>5227a6703a7e11e7a39e842b2ba3d275</id>
+                <name><![CDATA[I_B1]]></name>
+                <type>Gauge</type>
+                <description><![CDATA[]]></description>
+                <data_type>Analog signal</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = 0.0
+
+]]></code>
+                <signal_name><![CDATA[L_B1]]></signal_name>
+                <unit><![CDATA[A]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>392.0</x>
+                    <y>208.0</y>
+                    <width>248</width>
+                    <height>144</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <min>0.0</min>
+                    <max>100.0</max>
+                    <warning_range>(0, 0, 0, 0)</warning_range>
+                    <critical_range>(0, 0, 0, 0)</critical_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>6215dde13a7e11e7b44a842b2ba3d275</id>
+                <name><![CDATA[I_B2]]></name>
+                <type>Gauge</type>
+                <description><![CDATA[]]></description>
+                <data_type>Analog signal</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = 0.0
+
+]]></code>
+                <signal_name><![CDATA[L_B2]]></signal_name>
+                <unit><![CDATA[A]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>680.0</x>
+                    <y>208.0</y>
+                    <width>248</width>
+                    <height>144</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <min>0.0</min>
+                    <max>100.0</max>
+                    <warning_range>(0, 0, 0, 0)</warning_range>
+                    <critical_range>(0, 0, 0, 0)</critical_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>0c48f99e3b2411e7bf31842b2ba3d275</id>
+                <name><![CDATA[PV Monitor]]></name>
+                <type>PVDisplay</type>
+                <description><![CDATA[]]></description>
+                <pv_panel_name><![CDATA[Photovoltaic Panel]]></pv_panel_name>
+                <updateRate>250</updateRate>
+                <background_color>#ffffff</background_color>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>48.0</x>
+                    <y>440.0</y>
+                    <width>464</width>
+                    <height>232</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>f34280cf3b4a11e7b0ca842b2ba3d275</id>
+                <name><![CDATA[Gauge]]></name>
+                <type>Gauge</type>
+                <description><![CDATA[]]></description>
+                <data_type>Analog signal</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = 0.0
+
+]]></code>
+                <signal_name><![CDATA[Battery 1]]></signal_name>
+                <unit><![CDATA[V]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>680.0</x>
+                    <y>376.0</y>
+                    <width>248</width>
+                    <height>144</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <min>0.0</min>
+                    <max>1200.0</max>
+                    <warning_range>(0, 0, 0, 0)</warning_range>
+                    <critical_range>(0, 0, 0, 0)</critical_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>4ef38c30513511e79a73d4bed9984596</id>
+                <name><![CDATA[Display]]></name>
+                <type>DigitalDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Expression</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = hil.get_battery_soc("Battery 2")
+]]></code>
+                <signal_name><![CDATA[Va1]]></signal_name>
+                <unit><![CDATA[V]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <decimals><![CDATA[8]]></decimals>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>344.0</x>
+                    <y>376.0</y>
+                    <width>232</width>
+                    <height>72</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <green_range>(0, 0, 0, 0)</green_range>
+                    <orange_range>(0, 0, 0, 0)</orange_range>
+                    <red_range>(0, 0, 0, 0)</red_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>1ef6318f513f11e7ba51d4bed9984596</id>
+                <name><![CDATA[Macro]]></name>
+                <type>Macro</type>
+                <description><![CDATA[]]></description>
+                <on_click_code active="False"><![CDATA[# NOTE: The code specified in this handler will be executed on button click.
+# HIL API
+import typhoon.api.hil as hil
+
+
+]]></on_click_code>
+                <on_start_code active="True"><![CDATA[import typhoon.api.hil as hil
+
+import typhoon.api.hil as hil
+
+value1 = 1- hil.get_battery_soc("Battery 1")
+hil.set_analog_output(6,'Va1', scaling = 100, offset = -0.025 - value1)
+print("Battery1    " + str(value1))
+
+value2 = 1- hil.get_battery_soc("Battery 2")
+hil.set_analog_output(7,'Va2', scaling = 100, offset = -0.030 - value2)
+print("Battery2    " + str(value2))]]></on_start_code>
+                <on_timer_code active="True"><![CDATA[import typhoon.api.hil as hil
+
+import typhoon.api.hil as hil
+
+value1 = 1- hil.get_battery_soc("Battery 1")
+hil.set_analog_output(6,'Va1', scaling = 100, offset = -0.025 - value1)
+print("Battery1    " + str(value1))
+
+value2 = 1- hil.get_battery_soc("Battery 2")
+hil.set_analog_output(7,'Va2', scaling = 100, offset = -0.030 - value2)
+print("Battery2    " + str(value2))]]></on_timer_code>
+                <run_each>250</run_each>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>120.0</x>
+                    <y>384.0</y>
+                    <width>128</width>
+                    <height>40</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>58aacade514911e7829ad4bed9984596</id>
+                <name><![CDATA[Display]]></name>
+                <type>DigitalDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Expression</data_type>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing value
+# that will be displayed
+displayValue = hil.get_battery_soc("Battery 1")
+
+]]></code>
+                <signal_name><![CDATA[]]></signal_name>
+                <unit><![CDATA[]]></unit>
+                <automatic_unit>True</automatic_unit>
+                <decimals><![CDATA[5]]></decimals>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>576.0</x>
+                    <y>552.0</y>
+                    <width>248</width>
+                    <height>88</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+                <advance_widget_settings>
+                    <color_range>False</color_range>
+                    <green_range>(0, 0, 0, 0)</green_range>
+                    <orange_range>(0, 0, 0, 0)</orange_range>
+                    <red_range>(0, 0, 0, 0)</red_range>
+                </advance_widget_settings>
+            </component_data>
+        <component_data>
+                <id>b0839c706d8611e7b281d4bed9984596</id>
+                <name><![CDATA[LED 1]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 1]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>104</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>51271da16d8711e79b9cd4bed9984596</id>
+                <name><![CDATA[LED 2]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 2]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Green</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>500</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>184</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>54d7c9916d8711e7abe4d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 3]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>272</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>54d7c9926d8711e79282d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 4]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>352</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>5a5630a16d8711e7b8aad4bed9984596</id>
+                <name><![CDATA[LED 5]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 5]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>432</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>5a5630a26d8711e7b30bd4bed9984596</id>
+                <name><![CDATA[LED 7]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 7]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>600</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>5a5630a36d8711e7988bd4bed9984596</id>
+                <name><![CDATA[LED 6]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 6]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>512</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>5a5630a46d8711e7b30bd4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 8]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>680</x>
+                    <y>704</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fcf6d8711e796f3d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 16]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>680</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd06d8711e79117d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 12]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>352</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd16d8711e7b737d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 14]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>512</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd26d8711e793c0d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 10]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>184</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd36d8711e786b3d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 13]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>432</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd46d8711e798e9d4bed9984596</id>
+                <name><![CDATA[LED11]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 11]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>272</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd56d8711e7a464d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 9]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>104</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>739c5fd66d8711e79768d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 15]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>600</x>
+                    <y>744</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c70f6d8711e7b736d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 24]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>680</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7106d8711e78535d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 32]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>680</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7116d8711e7b771d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 29]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>432</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7126d8711e791d4d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 18]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>184</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7136d8711e7a35bd4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 28]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>352</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7146d8711e79191d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 20]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>352</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7156d8711e78a55d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 27]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>272</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7166d8711e79f66d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 22]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>512</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7176d8711e7ac78d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 30]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>512</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7186d8711e79803d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 21]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>432</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c7196d8711e7a3dbd4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 19]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>272</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0c71a6d8711e7865bd4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 25]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>104</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0ee1e6d8711e78e3dd4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 31]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>600</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0ee1f6d8711e7ba28d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 17]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>104</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0ee206d8711e7afabd4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 23]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>600</x>
+                    <y>792</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>9aa0ee216d8711e7bd90d4bed9984596</id>
+                <name><![CDATA[LED]]></name>
+                <type>LedDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Digital signal</data_type>
+                <signal_name><![CDATA[HIL0 digital input 26]]></signal_name>
+                <hil_device>0</hil_device>
+                <led_color>Red</led_color>
+                <code><![CDATA[#----------------------- MANDATORY IMPORT --------------------------
+# HIL API
+import typhoon.api.hil as hil
+
+# NOTE: Only read functions are available from the HIL API
+#-------------------------------------------------------------------
+
+# mandatory variable used for storing LED indicator state
+# True -> On, False -> Off
+displayValue = False
+]]></code>
+                <updateRate>250</updateRate>
+                <hierarchy_position>1</hierarchy_position>
+                <widget_settings>
+                    <x>184</x>
+                    <y>832</y>
+                    <width>56</width>
+                    <height>32</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                </widget_settings>
+            </component_data>
+        <component_data>
+                <id>33fee7616d8911e7b55ed4bed9984596</id>
+                <name><![CDATA[Capture/Scope]]></name>
+                <type>Capture/Scope</type>
+                <description><![CDATA[]]></description>
+                <hierarchy_position>1</hierarchy_position>
+                <working_mode>windowed</working_mode>
+                <widget_settings>
+                    <x>184</x>
+                    <y>920</y>
+                    <width>120</width>
+                    <height>120</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                    <state>Scope</state>
+                    <layout></layout>
+
+                    <capture>
+                        <time_interval>0.1</time_interval>
+                        <sample_rate>1000000.0</sample_rate>
+                        <background_color>False</background_color>
+                        <layout>Vertical</layout>
+                        <legend>True</legend>
+                        <trigger>
+                            <type>Analog</type>
+                            <source>None</source>
+                            <edge>Rising edge</edge>
+                            <treshold>0.0</treshold>
+                            <offset>0.0</offset>
+                        </trigger>
+
+                        <analog_signals>
+                            </analog_signals>
+
+                         <digital_signals>
+                            </digital_signals>
+
+                    </capture>
+
+                    <scope>
+                        <time_base>0.005 </time_base>
+                        <background_color>False</background_color>
+                        <layout>Grid</layout>
+                        <legend>True</legend>
+                        <trigger>
+                            <mode>Auto</mode>
+                            <type>Digital</type>
+                            <source>Battery Charger 1.IGBT Leg_stf</source>
+                            <edge>Rising edge</edge>
+                            <treshold>0.0</treshold>
+                            <offset>50.0</offset>
+                        </trigger>
+
+                         <analog_signals>
+                            </analog_signals>
+
+                        <digital_signals>
+                            <digital>
+                            <chanel>0</chanel>
+                            <name>HIL0 digital input 2</name>
+                            <vertical_offset>0.0</vertical_offset>
+                            <viewports>
+                                
+                           </viewports>
+                        </digital>
+                            </digital_signals>
+
+                    </scope>
+
+                </widget_settings>
+
+            </component_data>
+        </components>
+</ui_settings>

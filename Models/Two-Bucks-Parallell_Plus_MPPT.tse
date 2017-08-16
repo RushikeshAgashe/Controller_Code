@@ -1,0 +1,638 @@
+version = 4.2
+
+
+//
+// Saved by sw version: 2017.1 SP1
+// Save timestamp: 16-Aug-2017 @ 03:22:47 PM
+//
+
+model "Two-Bucks-Parallell_Plus_MPPT" {
+    configuration {
+        hil_device = "HIL602"
+        hil_configuration_id = 2
+        simulation_method = exact
+        simulation_time_step = auto
+        dsp_timer_periods = 100e-6, 50e-3
+        ss_calc_method = "systematic elimination"
+        enb_pole_shift = True
+        enb_gds_oversampling = True
+        show_modes = False
+        cpl_stb = False
+        enb_dep_sw_detect = False
+        code_section = "internal memory"
+        data_section = "internal memory"
+        sys_sp_rate_1 = 0.0001
+        sys_sp_rate_2 = 0.05
+        sys_real_type_precision = "default"
+        user_real_type_precision = "default"
+        sys_cpu_optimization = "high"
+        user_cpu_optimization = "high"
+    }
+
+    
+    component Subsystem Root {
+
+        
+        component src_ground gnd1 {
+            
+	    
+        }
+        [
+            position = 7720, 8656
+        ]
+        
+        component msr_current I_R2 {
+            
+	    
+        }
+        [
+            position = 8592, 8440
+            rotation = right
+        ]
+        
+        component pas_inductor L_B1 {
+            
+            inductance = "5e-3"
+	    
+        }
+        [
+            position = 8032, 8376
+        ]
+        
+        component pas_inductor L_B2 {
+            
+            inductance = "5e-3"
+	    
+        }
+        [
+            position = 8016, 8912
+        ]
+        
+        component pas_capacitor C_B1 {
+            
+            capacitance = "250e-6"
+	    
+        }
+        [
+            position = 8112, 8472
+            rotation = right
+        ]
+        
+        component pas_capacitor C_B2 {
+            
+            capacitance = "2500e-6"
+	    
+        }
+        [
+            position = 8128, 9000
+            rotation = right
+        ]
+        
+        component pas_resistor Load {
+            
+            resistance = "5"
+	    
+        }
+        [
+            position = 8592, 8512
+            rotation = right
+        ]
+        
+        component src_pv "Photovoltaic Panel" {
+            
+	    
+        }
+        [
+            position = 7600, 7992
+            rotation = right
+        ]
+        
+        component pas_inductor L_PV {
+            
+            inductance = "20e-3"
+	    
+        }
+        [
+            position = 8152, 7904
+        ]
+        
+        component pas_capacitor PV_in {
+            
+            capacitance = "5e-3"
+	    
+        }
+        [
+            position = 7712, 7992
+            rotation = right
+        ]
+        
+        component pas_capacitor Pv_Out {
+            
+            capacitance = "250e-6"
+	    
+        }
+        [
+            position = 8288, 8000
+            rotation = right
+        ]
+        
+        component src_battery "Battery 1" {
+            
+            Kdisc_I = "20.0"
+            Ke_exp = "103.0"
+            Ke_full = "116.0"
+            Kq_exp = "85.0"
+            Kq_nom = "93.5"
+            battery_type = "Lithium-Ion"
+            capacity = "100"
+            nominal_voltage = "1000"
+	    
+        }
+        [
+            position = 7576, 8408
+            rotation = right
+        ]
+        
+        component src_battery "Battery 2" {
+            
+            Kdisc_I = "20.0"
+            Ke_exp = "103.0"
+            Ke_full = "116.0"
+            Kq_exp = "85.0"
+            Kq_nom = "93.5"
+            battery_type = "Lithium-Ion"
+            capacity = "100"
+            nominal_voltage = "1000"
+	    
+        }
+        [
+            position = 7568, 8920
+            rotation = right
+        ]
+        
+        component msr_voltage Va1 {
+            
+	    
+        }
+        [
+            position = 8488, 8704
+            rotation = right
+        ]
+        
+        component src_voltage Zero {
+            
+	    
+        }
+        [
+            position = 8264, 8712
+            rotation = right
+        ]
+        
+        component msr_voltage Va2 {
+            
+	    
+        }
+        [
+            position = 8488, 8864
+            rotation = right
+        ]
+        
+        component src_voltage Zero1 {
+            
+	    
+        }
+        [
+            position = 8264, 8872
+            rotation = right
+        ]
+        component "core/IGBT Leg" "Battery Charger 1" {
+            
+            S_bot = "32"
+            S_bot_logic = "active low"
+            S_top = "32"
+        }
+        [
+            position = 7872, 8376
+            size = 80, 192
+        ]
+        
+        component "core/IGBT Leg" "Battery Charger 2" {
+            
+            S_bot = "26"
+            S_bot_logic = "active low"
+            S_top = "26"
+        }
+        [
+            position = 7872, 8912
+            size = 80, 192
+        ]
+        
+        component "core/Buck" Buck1 {
+            
+            S1 = "18"
+        }
+        [
+            position = 7952, 8000
+            size = 127, 256
+        ]
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        junction Junction5 pe
+        [
+            position = 7712, 7904
+        ]
+        
+        junction Junction6 pe
+        [
+            position = 7712, 8096
+        ]
+        
+        junction Junction82 pe
+        [
+            position = 8112, 8376
+        ]
+        
+        junction Junction83 pe
+        [
+            position = 8304, 8376
+        ]
+        
+        junction Junction84 pe
+        [
+            position = 8128, 9072
+        ]
+        
+        junction Junction85 pe
+        [
+            position = 8128, 8912
+        ]
+        
+        junction Junction86 pe
+        [
+            position = 8592, 8576
+        ]
+        
+        junction Junction88 pe
+        [
+            position = 7872, 8576
+        ]
+        
+        junction Junction89 pe
+        [
+            position = 8112, 8576
+        ]
+        
+        junction Junction90 pe
+        [
+            position = 8544, 8376
+        ]
+        
+        junction Junction91 pe
+        [
+            position = 8288, 7904
+        ]
+        
+        junction Junction92 pe
+        [
+            position = 8288, 8576
+        ]
+        
+        junction Junction93 pe
+        [
+            position = 8288, 8096
+        ]
+        
+        junction Junction94 pe
+        [
+            position = 7720, 8576
+        ]
+        
+        junction Junction95 pe
+        [
+            position = 7872, 9072
+        ]
+        connect "Battery 1.p_node" "Battery Charger 1.pos_out" as Connection510
+        
+        connect "Battery 1.n_node" Junction94 as Connection513
+        
+        connect "Battery 2.p_node" "Battery Charger 2.pos_out" as Connection515
+        [
+            breakpoints =7568, 8752;7872, 8752
+        ]
+        connect "Battery 2.n_node" Junction95 as Connection518
+        [
+            breakpoints =7568, 9072;7616, 9072;7616, 9072;7872, 9072
+        ]
+        connect "Battery Charger 1.neg_out" Junction88 as Connection472
+        
+        connect "Battery Charger 1.a_in" L_B1.p_node as Connection5
+        
+        connect "Battery Charger 2.a_in" L_B2.p_node as Connection8
+        
+        connect Buck1.b_out Junction93 as Connection508
+        
+        connect Buck1.a_out L_PV.p_node as Connection2
+        
+        connect C_B1.p_node Junction82 as Connection430
+        
+        connect C_B1.n_node Junction89 as Connection475
+        
+        connect C_B2.n_node Junction84 as Connection437
+        
+        connect C_B2.p_node Junction85 as Connection442
+        
+        connect I_R2.n_node Load.p_node as Connection251
+        
+        connect Junction5 Buck1.a_in as Connection15
+        
+        connect Junction6 Buck1.b_in as Connection22
+        [
+            breakpoints =7712, 8096;7712, 8096;7872, 8096
+        ]
+        connect Junction82 L_B1.n_node as Connection429
+        
+        connect Junction83 Junction82 as Connection432
+        
+        connect Junction83 Junction90 as Connection493
+        [
+            breakpoints =8304, 8376;8528, 8376
+        ]
+        connect Junction84 Junction86 as Connection464
+        [
+            breakpoints =8128, 9072;8592, 8608
+        ]
+        connect Junction84 Junction95 as Connection516
+        [
+            breakpoints =8128, 9072;8128, 9072
+        ]
+        connect Junction85 Junction83 as Connection441
+        
+        connect Junction86 Load.n_node as Connection465
+        [
+            breakpoints =8592, 8584;8592, 8560
+        ]
+        connect Junction88 Junction89 as Connection473
+        
+        connect Junction89 Junction92 as Connection499
+        
+        connect Junction90 I_R2.p_node as Connection494
+        
+        connect Junction90 Junction91 as Connection505
+        [
+            breakpoints =8544, 8376;8544, 8104;8544, 8104;8544, 7904
+        ]
+        connect Junction92 Junction86 as Connection500
+        
+        connect Junction93 Junction92 as Connection507
+        
+        connect Junction94 Junction88 as Connection512
+        [
+            breakpoints =7720, 8576
+        ]
+        connect Junction95 "Battery Charger 2.neg_out" as Connection517
+        [
+            breakpoints =7872, 9072
+        ]
+        connect L_B2.n_node Junction85 as Connection440
+        
+        connect L_PV.n_node Junction91 as Connection496
+        
+        connect PV_in.p_node Junction5 as Connection16
+        
+        connect PV_in.n_node Junction6 as Connection23
+        
+        connect "Photovoltaic Panel.p_node" Junction5 as Connection14
+        
+        connect "Photovoltaic Panel.n_node" Junction6 as Connection21
+        
+        connect Pv_Out.p_node Junction91 as Connection498
+        
+        connect Pv_Out.n_node Junction93 as Connection506
+        
+        connect Va1.n_node Zero.n_node as Connection571
+        [
+            breakpoints =8488, 8760;8424, 8760;8424, 8760;8424, 8760;8424, 8760;8376, 8760;8376, 8760;8320, 8760;8320, 8760;8264, 8760
+        ]
+        connect Va2.n_node Zero1.n_node as Connection574
+        [
+            breakpoints =8488, 8920;8424, 8920;8424, 8920;8424, 8920;8424, 8920;8376, 8920;8376, 8920;8320, 8920;8320, 8920;8264, 8920
+        ]
+        connect Zero.p_node Va1.p_node as Connection572
+        [
+            breakpoints =8264, 8656;8488, 8656
+        ]
+        connect Zero1.p_node Va2.p_node as Connection573
+        [
+            breakpoints =8264, 8816;8488, 8816
+        ]
+        connect gnd1.node Junction94 as Connection511
+        
+        
+
+        
+    }
+
+    
+    
+    default {
+        
+        msr_current {
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+        
+        msr_voltage {
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+        
+        pas_capacitor {
+            capacitance = "1e-6"
+            initial_voltage = "0"
+        }
+        
+        pas_inductor {
+            inductance = "1e-3"
+            initial_current = "0.0"
+        }
+        
+        pas_resistor {
+            resistance = "1"
+        }
+        
+        src_battery {
+            battery_type = "Lead-Acid"
+            nominal_voltage = "12.0"
+            capacity = "1.2"
+            initial_soc = "100.0"
+            Ke_full = "108.0"
+            Kdisc_I = "5.0"
+            R_series = "0.25"
+            Kq_nom = "50.0"
+            Kq_exp = "0.9"
+            Ke_exp = "102.5"
+            preview = "Preview SOC Curve"
+        }
+        
+        src_pv {
+            Cpv = "1e-6"
+        }
+        
+        src_voltage {
+            type = "signal generator"
+            param_set = ""
+            dev_cpl_msr = "false"
+            host_device = "0"
+            input_from_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            snb_type_u = "none"
+            R2 = "0.1"
+            L1 = "0.1"
+            fixed_snb_u = "false"
+            cpd_visible = "True"
+        }
+        
+        "core/IGBT Leg" {
+            ctrl_src = "Digital input per switch"
+            carrier_freq = "10000.0"
+            carr_ph_offset = "0.0"
+            d_time = "5e-6"
+            ref_sig_min_max = "[-1.0, 1.0]"
+            execution_rate = "inherit"
+            S_top = "1"
+            S_top_logic = "active high"
+            S_bot = "2"
+            S_bot_logic = "active high"
+            show_monitoring = "false"
+            PESB_Optimization = "True"
+            _control_property = "all high"
+        }
+        
+        "core/Buck" {
+            ctrl_src = "Digital inputs"
+            carrier_freq = "10000.0"
+            carr_ph_offset = "0.0"
+            d_time = "5e-6"
+            ref_sig_min_max = "[-1.0, 1.0]"
+            execution_rate = "inherit"
+            S1 = "1"
+            S1_logic = "active high"
+            show_monitoring = "false"
+        }
+    }
+
+}

@@ -1,0 +1,63 @@
+---------- Error Report ----------
+
+** 1 error(s) occurred during runtime **
+Error 1: 
+	 Typhoon Error: 3000 
+	 Bad voltage loop consisting of Zero and C_B3 detected. The C_B3 capacitance is degenerated. 
+	 Line 157 in function "report_degenerations" in file "report_degenerations.m" 
+	 Line 73 in function "Model_Generator" in file "Model_Generator.m" 
+
+
+
+
+---------- Warning Report ----------
+
+
+
+
+
+---------- Messages ----------
+
+Extracting netlist...
+Create circuit structure ... Done
+Checking the number of subcircuits
+Starting per core circuit partitioning.
+Number of subcircuits: 2
+
+Creating separate circuit structures for subcircuit: 1 ... 
+Components in subcircuit 1: 	Partial list of components in subcircuit (SPC) 1:
+	C_B3
+	Load1
+	Va1
+
+			    C_B3
+			    Load1
+			    Va1
+			    Zero
+
+Creating separate circuit structures for subcircuit: 2 ... 
+Components in subcircuit 2: 	Partial list of components in subcircuit (SPC) 2:
+	Battery 1
+	Battery 2
+	Battery Charger 1.IGBT Leg
+
+			    Battery 1
+			    Battery 2
+			    Battery Charger 1.IGBT Leg
+			    Battery Charger 2.IGBT Leg
+			    Buck1.Buck_Fnd
+			    C_B1
+			    C_B2
+			    I_R2
+			    L_B1
+			    L_B2
+			    L_PV
+			    Load
+			    PV_in
+			    Photovoltaic Panel
+			    Pv_Out
+
+Full list of components per core can be found in compiler Log file located in Target Files folder.
+Circuit is divided into 2 subcircuits.
+Building state space representation for subcircuit 1...
+Warning 3000: Bad voltage loop consisting of Zero and C_B3 detected. The C_B3 capacitance is degenerated.

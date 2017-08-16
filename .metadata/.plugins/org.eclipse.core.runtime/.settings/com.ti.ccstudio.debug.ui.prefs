@@ -1,8 +1,0 @@
-MODULES_MRU_PATH=C\:\\Users\\ragashe\\workspace_v7\\Modbus_Slave\\Debug\\Modbus_Slave.out
-MODULES_MRU_PATH.1=C\:/Users\\ragashe\\workspace_v7\\Modbus_Slave\\Debug\\Modbus_Slave.out
-MODULES_MRU_PATH.2=C\:\\Users\\ragashe\\workspace_v7.1\\Buck\\Debug\\Buck.out
-eclipse.preferences.version=1
-symbolAutoCompleteHistory<seperator>org.eclipse.cdt.debug.ui.memory.memorybrowser.MemoryBrowser<seperator>Data<seperator>Texas\ Instruments\ XDS100v1\ USB\ Debug\ Probe_0\\C28xx=0x339F99,0x007100
-symbolAutoCompleteHistory<seperator>org.eclipse.cdt.debug.ui.memory.memorybrowser.MemoryBrowser<seperator>Peripheral<seperator>Texas\ Instruments\ XDS100v1\ USB\ Debug\ Probe_0\\C28xx=0x000880
-symbolAutoCompleteHistory<seperator>org.eclipse.cdt.debug.ui.memory.memorybrowser.MemoryBrowser<seperator>Program<seperator>Texas\ Instruments\ XDS100v1\ USB\ Debug\ Probe_0\\C28xx=0x0007A
-useAnnotationsPrefPage=true

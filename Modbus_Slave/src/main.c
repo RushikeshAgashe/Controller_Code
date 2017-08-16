@@ -20,6 +20,7 @@ int main(){
 		if (mb.state == MB_START){
 		while(1){}
 		}
+
 	    //mb.transmit(&mb);
 		mb.holdingRegisters.dummy0 += 1;
 		if (mb.holdingRegisters.dummy0 > 5000)

@@ -52,6 +52,7 @@ while true is 1:
     regs = c.read_holding_registers(0,16)
     if regs is None:
         error = True
+	print "GLEEEBA"
     else:
         DC_Bus_Voltage = round(unpack('f',pack('<HH',regs[1],regs[0]))[0],4)
         Current_Battery_1 = round(unpack('f',pack('<HH',regs[3],regs[2]))[0],4)

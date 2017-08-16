@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;Example_2833xSci_Echoback&apos;" deleteContents="true" description="Delete resource &apos;Example_2833xSci_Echoback&apos;" element1="/Example_2833xSci_Echoback" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1497126273740"/>&#x0A;<refactoring comment="Delete resource &apos;SCI_test_Echo_back&apos;" deleteContents="true" description="Delete resource &apos;SCI_test_Echo_back&apos;" element1="/SCI_test_Echo_back" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1497126425367"/>
-</session>

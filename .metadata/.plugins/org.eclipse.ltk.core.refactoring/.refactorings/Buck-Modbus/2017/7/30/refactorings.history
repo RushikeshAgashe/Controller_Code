@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move &apos;can.h&apos; to &apos;Buck-Modbus&apos;" description="Move &apos;can.h&apos; to &apos;Buck-Modbus&apos;" destination="/Buck-Modbus" element1="targetConfigs/can.h" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1501008110191" updateReferences="true"/>
-</session>
