@@ -1,0 +1,53 @@
+<!--
+<script src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js'></script>
+<script>
+
+var CHART = document.getElementById("LineChart");
+var myLineChart = Chart(CHART, {
+    type: 'line',
+    height: 20,
+    data : {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+            {
+                label: "My First dataset",
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 5,
+                data: [ {{PV}} , {{Battery_1}}, {{Battery_2}}, {{Inverter}}, {{DC_Bus_Voltage}},10, 15],
+                spanGaps: false,
+            }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+            display: true,
+            ticks: {
+                suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+                suggestedMax:20,
+                // OR //
+            }
+        }]
+        },
+    responsive: true,
+    maintainAspectRatio: true,
+    animationSteps: 50,
+    
+    }
+});      
+</script>-->

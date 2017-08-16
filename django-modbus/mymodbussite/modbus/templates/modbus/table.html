@@ -1,0 +1,47 @@
+<!DOCTYPE = html>
+<table align="center" padding = "10px" border=2 width =80% back style="background-color:floralwhite">
+  <tr id="header">
+    <td> PV </td>
+    <td> Battery 1</td>
+    <td> Battery 2 </td>
+    <td> Inverter </td>
+    <td> DC-Bus Voltage </td>
+  </tr>
+  <tr>
+      <td > Voltage = <b>{{PV}}</b></td>
+      <td> Current =  <b>{{Current_Battery_1}}</b></td>
+      <td> Current = <b>{{Current_Battery_2}}</b></td>
+      <td> Voltage =   -- </td>
+      <td> Voltage =  <b>{{DC_Bus_Voltage}}</b></td>
+  </tr>
+    
+    <tr>
+        <td>  Current = 2.7734 </td>
+        <td>  Rd1 = <b>{{Rd1}}</b> </td>
+        <td>  Rd2 = <b>{{Rd2}}</b> </td>
+        <td>  Current = -- </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td>  Power = 2.7734 </td>
+        <td>  Battery1 SoC = <b>{{Battery_1}} %</b></td>
+        <td>  Battery2 SoC = <b>{{Battery_2}} % </b></td>
+        <td>  Power = -- </td>
+         <td> </td>
+    </tr>
+      </table><br>
+      
+<script>
+function MyFunction(input){
+    $.ajax({
+        type: "GET",
+        url: "test.py",
+        data: { param: input },
+        success: callbackfunc
+    });
+}
+function callbackfunc(response){
+        window.alert(response);
+        console.log(response);
+}
+</script>
