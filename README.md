@@ -1,6 +1,6 @@
 # FREEDM_Controller_Code
-This repository contains the source code for the Control Code on TMS320F28335 with MODBUS communication
- Buck-Modbus has fully functional MODBUS and CAN communication codes, verified on 03/27/2018.
+This repository contains the source code for the Control Code on TMS320F28335 with MODBUS communication.
+Buck-Modbus has fully functional MODBUS and CAN communication codes, verified on 03/27/2018.
  
  NOTES:
  
