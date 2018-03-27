@@ -5,7 +5,7 @@ This repository contains the source code for the Control Code on TMS320F28335 wi
  NOTES:
  
  Only Controller with 'Controller_ID == 3' is capable of performing direct MODBUS communication on its serial port.
- To set up MODBUS RTU communication from a MODBUS master on PC, select COM port corresponding to DSP3. (See LEDs RX3 TX3 on Typhoon to check)
+ To set up MODBUS RTU communication from a MODBUS master on PC, select COM port corresponding to DSP3. (See LEDs RX3 TX3 on Typhoon's 'uGrid DSP Interface 2.0 Board' to check)
  
  Controllers with 'Controller ID == 1' or 'Controller_ID ==2' are capable of MODBUS communication indirectly.
  The PC must communicate with Controller3, requesting for messages for any SLAVE ID.
