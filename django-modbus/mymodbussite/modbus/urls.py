@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^SoC_Balancing_Disable.py/$', views.SoC_Balancing_Disable, name='SoC_Balancing_Disable'),
     url(r'^database.py/$', views.database, name='database'),
     url(r'^linechart.js/$', views.linechartscript, name='linechartscript'),
+    url(r'^chart_data.html/$', views.chart_data, name='chart_data'),
     url(r'^chart.html/$', views.chart, name='chart'),
-    url(r'^base.html/$', views.base, name='chart'),
+    url(r'^style.css/$', views.style, name='style'),
  ]

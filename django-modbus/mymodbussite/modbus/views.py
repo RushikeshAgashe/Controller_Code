@@ -31,6 +31,9 @@ def read_from_db():
 
 def index(request):
     return render(request, 'modbus/ModbusDataVisualizer.html')
+
+def style(request):
+    return render(request, 'modbus/style.css')
    
 def table(request):
     modbusdata, dictionary = read_from_db()
@@ -77,11 +80,11 @@ def dataloaderscript(request):
 def linechartscript(request):
     return render(request, 'modbus/linechart.js')
 
-def base(request):
-    modbusdata,dictionary = read_from_db()
-    return render(request, 'modbus/base.html',dictionary)
-
 def chart(request):
     modbusdata,dictionary = read_from_db()
-    #print "This is dummy", modbusdata
     return render(request, 'modbus/chart.html',dictionary)
+
+def chart_data(request):
+    modbusdata,dictionary = read_from_db()
+    #print "This is dummy", modbusdata
+    return render(request, 'modbus/chart_data.html',dictionary)

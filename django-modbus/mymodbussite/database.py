@@ -5,6 +5,19 @@ import win_inet_pton
 from struct import *
 import time
 
+# def read_from_db():
+#     conn = sqlite3.connect('modbusdata2.db')
+#     c= conn.cursor()
+#     c.execute('SELECT * FROM stuffToPlot')
+#     data = c.fetchall()
+#     for x in data:
+#         row = x
+#     conn.commit()
+#     c.close()
+#     conn.close()
+#     return row
+    
+
 def create_table():
     conn = sqlite3.connect('modbusdata2.db')
     c= conn.cursor()
@@ -13,18 +26,6 @@ def create_table():
     conn.commit()
     c.close()
     conn.close()
-    
-def read_from_db():
-    conn = sqlite3.connect('modbusdata2.db')
-    c= conn.cursor()
-    c.execute('SELECT * FROM stuffToPlot')
-    data = c.fetchall()
-    for x in data:
-        row = x
-    conn.commit()
-    c.close()
-    conn.close()
-    return row
     
 
 def data_entry():
@@ -62,8 +63,9 @@ while true is 1:
         Battery_1 = round(unpack('f',pack('<HH',regs[13],regs[12]))[0],4)
         Battery_2 = round(unpack('f',pack('<HH',regs[15],regs[14]))[0],4)
         data_entry()
+        
         all_data= [DC_Bus_Voltage,Current_Battery_1,Current_Battery_2, PV, Battery_1,Battery_2]
-        row = read_from_db()
+        # row = read_from_db()
         print DC_Bus_Voltage, PV ,Battery_1 , Battery_2, Current_Battery_1,Current_Battery_2
     c.close()
     time.sleep(0.7)

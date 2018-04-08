@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -15,84 +15,75 @@
         font-weight: bold;
         font-size: 120%;
         color:darkblue;
-}
+  }
     #Canvas{
         max-height: 100;
         max-width: 40;
-    }
-    #StartButton1,#StartButton2,#StartButton3,#StartButton4,#StartButton5,#StartButton6
-{
-  height: 25px;
-  padding: 5px;
-  width : 150px;
-  font-size: 100%;
-  color: #123503;
-  background-color: #3eb80a;
-  font-weight:bold;
-  margin-top: 2px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2px;
-  
-}   
-    #StopButton1,#StopButton2,#StopButton3,#StopButton4,#StopButton5,#StopButton6
-{
-  height: 25px;
-  width : 150px;
-  padding: 5px;
-  font-size: 100%;
-  color: #5c0000;
-  background-color: #ff3d3d;
-  font-weight:bold;
-    margin: auto;
-}
-    #SubmitB1,#SubmitB2
-    {
-    height: 30px;
-  font-size: 100%;
-  color: #123503;
-  background-color: #d3d3d3;
-  font-weight:bold;
-    margin: auto;
-}
-    #OnButton1, #OnButton2
-    {
-    height: 30px;
-  font-size: 100%;
-  color:white;
-  background-color: #d3d3d3;
-    margin: auto;
-        
-}
-     #OffButton1, #OffButton2
-    {
-    height: 30px;
-  font-size: 100%;
-  color: white;
-  background-color: #cc0000;
-  margin: auto;
-    }
+  }
+    #StartButton1,#StartButton2,#StartButton3,#StartButton4,#StartButton5,#StartButton6{
+        height: 25px;
+        padding: 5px;
+        width : 150px;
+        font-size: 100%;
+        color: #123503;
+        background-color: #3eb80a;
+        font-weight:bold;
+        margin-top: 2px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2px;
+  }   
+    #StopButton1,#StopButton2,#StopButton3,#StopButton4,#StopButton5,#StopButton6{
+        height: 25px;
+        width : 150px;
+        padding: 5px;
+        font-size: 100%;
+        color: #5c0000;
+        background-color: #ff3d3d;
+        font-weight:bold;
+        margin: auto;
+  }
+    #SubmitB1,#SubmitB2{
+        height: 30px;
+        font-size: 100%;
+        color: #123503;
+        background-color: #d3d3d3;
+        font-weight:bold;
+        margin: auto;
+  }
+    #OnButton1, #OnButton2{
+        height: 30px;
+        font-size: 100%;
+        color:white;
+        background-color: #d3d3d3;
+        margin: auto;
+  }
+     #OffButton1, #OffButton2{
+        height: 30px;
+        font-size: 100%;
+        color: white;
+        background-color: #cc0000;
+        margin: auto;
+  }
     .customButtonPropStart{
-  height: 30px;
-  font-size: 100%;
-  color: black;
-  background-color: red;
-  font-weight:bold;
-}
-
+        height: 30px;
+        font-size: 100%;
+        color: black;
+        background-color: red;
+        font-weight:bold;
+  }
     #Canvas{
         padding: 30px;
         width: 512px;
         position: relative;
-}
+  }
     tr{
-  font-family: Sans-serif, Monospace;
-  text-align:justify;
-  border-spacing: 10px;
-        border: none;
-  text-align: center;
-        
-}
+        font-family: Sans-serif, Monospace;
+        text-align:justify;
+        border-spacing: 10px;
+              border: none;
+        text-align: center;
+  }
     body{
         background-color:beige;
     }
@@ -101,6 +92,7 @@
     background-color: lightgray;
 }
 </style>
+
 </head>
 <body><br><br>
 <h1 class="text-primary text-center" style="color:darkblue; font-family:inherit" >MODBUS Data Visualizer<br> <br> </h1>
@@ -110,12 +102,12 @@
     <div>
          <tr>
              <td height="60"><b>MPPT</b><br>
-      <button id="OnButton1" class= "btn " font-size = "100%"> ENABLE
+      <button id="OnButton1" disabled class= "btn " font-size = "100%"> ENABLE
       </button>
       <button id="OffButton1" class= "btn buttonSize"> DISABLE </button>
     </td>
              <td height="60"><b>SoC Balaning</b><br>
-      <button id="OnButton2" class= "btn " font-size = "100%"> ENABLE
+      <button id="OnButton2" disabled class= "btn " font-size = "100%"> ENABLE
       </button>
       <button id="OffButton2" class= "btn buttonSize"> DISABLE </button>
     </td>
@@ -135,16 +127,21 @@
     </div>
 </table>
     <div id = 'template'></div>  <br><br>
-    <div id = 'base'></div>
+    <div id = 'chart'></div>
 </body>
 </html>
 <script>
-$("#base").load("base.html");
+$("#chart").load("chart.html");
 </script>
 
 <script>
 $('#SubmitB1').click(function () {
- submitFunction();
+ submitFunction1();
+ return false;
+});
+
+$('#SubmitB2').click(function () {
+ submitFunction2();
  return false;
 });
 
@@ -170,7 +167,7 @@ $('#OffButton2').click(function () {
     
 </script>
 <script>
-function submitFunction(){
+function submitFunction1(){
     var search = document.getElementById('Rd1').value;
     $.ajax({
         type: "GET",
@@ -178,6 +175,16 @@ function submitFunction(){
     });
     document.getElementById('Rd1').value = "";
 }
+
+function submitFunction2(){
+    var search = document.getElementById('Rd2').value;
+    $.ajax({
+        type: "GET",
+        url: "writer.py",
+    });
+    document.getElementById('Rd2').value = "";
+}
+
     
 function onFunction1(){
     $.ajax({
@@ -186,6 +193,8 @@ function onFunction1(){
     });
     document.getElementById('OnButton1').style.backgroundColor = '#d3d3d3'
     document.getElementById('OffButton1').style.backgroundColor = '#cc0000'
+    document.getElementById("OnButton1").disabled = true;
+    document.getElementById("OffButton1").disabled = false;
 }
     
 function offFunction1(){
@@ -195,6 +204,8 @@ function offFunction1(){
     });
     document.getElementById('OnButton1').style.backgroundColor = '#006400'
     document.getElementById('OffButton1').style.backgroundColor = '#d3d3d3'
+    document.getElementById("OnButton1").disabled = false;
+    document.getElementById("OffButton1").disabled = true;
 }    
 function onFunction2(){
     $.ajax({
@@ -211,6 +222,8 @@ function onFunction2(){
     document.getElementById("SubmitB2").disabled = true;
     document.getElementById('OnButton2').style.backgroundColor = '#d3d3d3'
     document.getElementById('OffButton2').style.backgroundColor = '#cc0000'
+    document.getElementById("OnButton2").disabled = true;
+    document.getElementById("OffButton2").disabled = false;
 }
     
     
@@ -229,6 +242,8 @@ function offFunction2(){
     document.getElementById("SubmitB2").disabled = false;
     document.getElementById('OnButton2').style.backgroundColor = '#006400'
     document.getElementById('OffButton2').style.backgroundColor = '#d3d3d3'
+    document.getElementById("OnButton2").disabled = false;
+    document.getElementById("OffButton2").disabled = true;
 
 }    
 </script>
